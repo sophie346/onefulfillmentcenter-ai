@@ -7,8 +7,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const isStagingHost = /(?:^|\.)test\.onefulfillcenter\.com$/i.test(
+  new URL(company.url).hostname,
+);
+
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
+  robots: isStagingHost
+    ? { index: false, follow: false, nocache: true }
+    : { index: true, follow: true },
   title: {
     default: "Onefulfillcenter | Next Generation Fulfillment Center",
     template: "%s | Onefulfillcenter",

@@ -4,6 +4,7 @@ const path = require("path");
 const nextConfig = {
   // SSR/ISR required so admin SEO API changes appear without a full static rebuild.
   // (Nexus uses getServerSideProps for the same reason.)
+  output: "standalone",
   trailingSlash: true,
   images: {
     unoptimized: true,

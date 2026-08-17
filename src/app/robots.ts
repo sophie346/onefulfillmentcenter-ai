@@ -4,6 +4,20 @@ import { company } from "@/data/brandArchitecture";
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
+  const hostname = new URL(company.url).hostname;
+  const isStagingHost = /(?:^|\.)test\.onefulfillcenter\.com$/i.test(hostname);
+
+  if (isStagingHost) {
+    return {
+      rules: [
+        {
+          userAgent: "*",
+          disallow: "/",
+        },
+      ],
+    };
+  }
+
   return {
     rules: [
       {

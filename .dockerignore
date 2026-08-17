@@ -1,0 +1,16 @@
+.git
+.github
+.next
+.wrangler
+.vscode
+.idea
+node_modules
+out
+coverage
+*.md
+.env
+.env.*
+!.env.example
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store

@@ -1,0 +1,49 @@
+# Prod image + GKE rollout for test.onefulfillcenter.com
+#   gcloud builds submit --config=cloudbuild.yaml --project=gentle-epoch-277301 .
+substitutions:
+  _GKE_CLUSTER: oneautobackend
+  _GKE_LOCATION: us-east1-b
+  _K8S_DEPLOYMENT: onefulfillcenter
+  _K8S_NAMESPACE: default
+  _NEXT_PUBLIC_SITE_URL: https://test.onefulfillcenter.com
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    env:
+      - DOCKER_BUILDKIT=1
+    args:
+      - build
+      - --build-arg
+      - NEXT_PUBLIC_SITE_URL=${_NEXT_PUBLIC_SITE_URL}
+      - -t
+      - gcr.io/$PROJECT_ID/onefulfillcenter
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/onefulfillcenter
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        gcloud container clusters get-credentials "$_GKE_CLUSTER" \
+          --location="$_GKE_LOCATION" \
+          --project="$PROJECT_ID"
+        if kubectl get "deployment/$_K8S_DEPLOYMENT" -n "$_K8S_NAMESPACE" >/dev/null 2>&1; then
+          kubectl rollout restart "deployment/$_K8S_DEPLOYMENT" -n "$_K8S_NAMESPACE"
+          kubectl rollout status "deployment/$_K8S_DEPLOYMENT" -n "$_K8S_NAMESPACE" --timeout=600s
+        else
+          echo "Deployment $_K8S_DEPLOYMENT not found yet; image pushed. Apply deploymentsAll/ui/deployment-onefulfillcenter.yaml then terraform."
+        fi
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+  diskSizeGb: 50
+
+timeout: 1800s
+
+images:
+  - gcr.io/$PROJECT_ID/onefulfillcenter
