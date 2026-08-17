@@ -1,0 +1,65 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.10 Course css
+/*----------------------------------------*/
+
+.#{$theme-prifix}-course{
+    $self : &;
+    &-meta{
+        & span{
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--tp-common-white);
+        }
+    }
+    &-logo{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--tp-common-white);
+        box-shadow: 0px 10px 10px rgba(3, 7, 18, 0.1);
+        backdrop-filter: blur(95px);
+        border-radius: 6px;
+        & span{
+            display: inline-block;
+            padding: 10px 14px;
+            position: relative;
+            &:not(:last-child){
+                &::after{
+                    position: absolute;
+                    content: '';
+                    right: 0;
+                    top: 0;
+                    width: 1px;
+                    height: 100%;
+                    background-color: rgba($color: #00005B, $alpha: .1);
+                }
+            }
+        }
+        & img{
+            width: auto;
+        }
+    }
+    &-item{
+        
+        &-spacing{
+            & .row{
+                & [class*='col-']{
+                    #{$self}{
+                        &-item{
+                            margin-right: 10px;
+                        }
+                    }
+                    &:nth-child(even){
+                        #{$self}{
+                            &-item{
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

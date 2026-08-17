@@ -1,0 +1,138 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.15 Pricing css
+/*----------------------------------------*/
+.#{$theme-prifix}-price {
+    $self: &;
+    text-align: center;
+    box-shadow: 0px 0px 50px 0px rgba(21, 24, 32, 0.04);
+    background-color: var(--tp-common-white);
+    padding: 0 0 50px 0;
+    &.active {
+        & .tp-price-btn a {
+            background-color: var(--tp-theme-3);
+            color: var(--tp-common-white);
+        }
+        & .tp-price-icon i {
+            color: var(--tp-theme-3);
+        }
+    }
+    &-wrap {
+        position: relative;
+        z-index: 1;
+    }
+    &-thumb {
+        & img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    &-icon {
+        & i {
+            font-size: 60px;
+            color: var(--tp-theme-4);
+            height: 130px;
+            width: 130px;
+            line-height: 145px;
+            background-color: var(--tp-common-white);
+            text-align: center;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0px 6px 10px 0px rgba(21, 24, 32, 0.02);
+            margin-top: -65px;
+            @include transition-mul(.3s);
+            @media #{$lg} {
+                font-size: 40px;
+                height: 100px;
+                width: 100px;
+                line-height: 110px;
+            }
+        }
+    }
+    &-features {
+        & ul {
+            & li {
+                list-style: none;
+                font-weight: 400;
+                font-size: 16px;
+                color: var(--tp-theme-4);
+                margin-bottom: 13px;
+                &.tp-price-inactive {
+                    color: var(--tp-text-1);
+                }
+            }
+            &-inactive {
+                color: var(--tp-text-1);
+            }
+        }
+    }
+    &-badge {
+        & span {
+            display: inline-block;
+            color: var(--tp-theme-4);
+            font-size: 22px;
+            font-weight: 700;
+        }
+    }
+    &-value {
+        font-size: 45px;
+        color: var(--tp-theme-3);
+        & span {
+            display: inline-block;
+            font-size: 22px;
+            color: var(--tp-theme-4);
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+    }
+    &-btn {
+        & a {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--tp-theme-4);
+            background-color: #f2f2f2;
+            padding: 15px 49px 17px 49px;
+            line-height: 1;
+            display: inline-block;
+            @include transition-mul(.3s);
+            &:hover {
+                background-color: var(--tp-theme-3);
+                color: var(--tp-common-white);
+            }
+        }
+    }
+    &-shape-1 {
+        position: absolute;
+        top: 2%;
+        right: 0;
+        z-index: -1;
+    }
+    &-blue {
+        #{$self}{
+            &.active{
+                #{$self}-btn a{
+                    color: var(--tp-common-white);
+                    background-color: var(--tp-theme-primary);
+                }
+            }
+
+            &-value {
+                color: var(--tp-theme-primary);
+            }
+            &.active,
+            &:hover{
+                #{$self}-icon{
+                    & i{
+                        color: var(--tp-theme-primary);
+                    }
+                }
+            }
+            &-btn{
+                & a:hover{
+                    background-color: var(--tp-theme-primary);
+                }
+            }
+        }
+    }
+}

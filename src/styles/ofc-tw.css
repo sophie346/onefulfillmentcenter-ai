@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+
+@theme {
+  --font-ofc-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-ofc-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --color-ofc-ink: #070b12;
+  --color-ofc-panel: #101826;
+  --color-ofc-line: rgba(255, 255, 255, 0.08);
+  --color-ofc-muted: #9aa6b8;
+  --color-ofc-orange: #ff6a3d;
+  --color-ofc-teal: #2fd3c8;
+}
+
+.ofc-tw {
+  font-family: var(--font-ofc-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ofc-tw h1,
+.ofc-tw h2,
+.ofc-tw h3,
+.ofc-tw h4 {
+  font-family: var(--font-ofc-display);
+}

@@ -1,0 +1,237 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.1 Hero css
+/*----------------------------------------*/
+
+.#{$theme-prifix}-hero{
+    &-height{
+        min-height: 950px;
+    }
+    &-content{
+        padding-right: 80px;
+        padding-bottom: 120px;
+        & > span{
+            font-size: 24px;
+            font-weight: 700;
+            @extend %ff-garamond;
+            color: var(--tp-common-white);
+            line-height: 1;
+            display: inline-block;
+            margin-bottom: -3px;
+
+            & img{
+                @include transform(translateY(-7px));
+            }
+        }
+
+        & p{
+            font-size: 20px;
+            line-height: 1.4;
+            color: rgba($color: $white, $alpha: .7);
+            padding-left: 100px;
+            margin-bottom: 33px;
+        }
+    }
+    &-title{
+        font-size: 100px;
+        color: var(--tp-common-white);
+        font-weight: 700;
+        @extend %ff-dmsans;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        margin-bottom: 25px;
+
+        & span{
+            @extend %ff-garamond;
+            @include gradient((90.68deg, #BCFFA4 8.59%, #BCFFA4 8.59%, #F59571 86.19%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            padding-right: 3px;
+        }
+    }
+    &-thumb{
+        & img{
+            mix-blend-mode: hard-light;
+        }
+
+        &-shape{
+            &-1,
+            &-2,
+            &-3{
+                position: absolute;
+                z-index: -1;
+            }
+
+            &-1{
+                left: -7%;
+                top: 23%;
+            }
+            &-2{
+                right: -8%;
+                top: 28%;
+            }
+
+            &-3{
+                @include rounded(600px, 600px);
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: rgba($color: #84994E, $alpha: .6);
+                @include filter(blur(190px));
+                z-index: -2;
+            }
+        }
+    }
+    &-btn{
+        padding-left: 100px;
+    }
+    &-scroll{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 351px;
+        &-bar{
+            display: inline-block;
+            width: 1px;
+            height: 317px;
+            @include gradient((180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%));
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            &::after{
+                @extend %tp-bfaf;
+                bottom: -1px;
+                left: -1px;
+                @include transform(translateY(-1px));
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background-color: var(--tp-common-white);
+            }
+        }
+        &-mouse{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: inline-block;
+            width: 16px;
+            height: 24px;
+            border: 1px solid var(--tp-common-white);
+            border-radius: 24px;
+            @include transform(translateX(-50%));
+
+            &::after{
+                @extend %tp-bfaf;
+                width: 4px;
+                height: 4px;
+                border: 1px solid var(--tp-common-white);
+                border-radius: 50%;
+                top: 6px;
+                left: 5px;
+                right: 6px;
+            }
+        }
+    }
+    &-social{
+        @include flexbox();
+        flex-direction: column;
+        &-bar{
+            display: inline-block;
+            width: 1px;
+            height: 160px;
+            @include gradient((180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%));
+            position: absolute;
+            left: 19px;
+            bottom: calc(100% + 20px);
+
+            &::after{
+                @extend %tp-bfaf;
+                bottom: -1px;
+                left: -1px;
+                @include transform(translateY(-1px));
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background-color: var(--tp-common-white);
+            }
+        }
+        &-wrapper{
+            position: absolute;
+            bottom: 50px;
+            right: 40px;
+            z-index: 1;
+        }
+        & a{
+            display: inline-block;
+            font-size: 18px;
+            background: #1D2B16;
+            border: 1px solid rgba($color: $white, $alpha: .18);
+            width: 40px;
+            height: 40px;
+            line-height: 38px;
+            text-align: center;
+            border-radius: 50%;
+            color: var(--tp-common-white);
+            &:not(:last-child){
+                margin-bottom: 10px;
+            }
+            & svg{
+                @extend %svg-2;
+            }
+
+            &:hover{
+                background-color: #BCE70C;
+                border-color: #BCE70C;
+                color: #292D32;
+            }
+        }
+    }
+    &-shape{
+        &-1{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        &-2{
+            @include rounded(400px, 400px);
+            display: inline-block;
+            position: absolute;
+            top: -35px;
+            left: 107px;
+            background-color: rgba($color: #F4BE1B, $alpha: .35);
+            @include filter(blur(150px));
+            z-index: -2;
+        }
+    }
+    &-bottom-text{
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        
+        & p{
+            text-align: center;
+            @extend %ff-abril;
+            font-weight: 400;
+            font-size: 280px;
+            line-height: .8;
+            letter-spacing: -0.02em;
+            @include gradient((90.68deg, #BCFFA4 8.59%, #F59571 86.19%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            mix-blend-mode: luminosity;
+            opacity: .3;
+            margin-bottom: 0;
+        }
+    }
+}

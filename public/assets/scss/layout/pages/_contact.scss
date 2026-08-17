@@ -1,0 +1,178 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.7 Contact css
+/*----------------------------------------*/
+.#{$theme-prifix}-form {
+    &-content {
+        & span {
+            color: var(--tp-theme-primary);
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    }
+    &-title {
+        font-size: 30px;
+        margin-bottom: 36px;
+    }
+    &-wrapper {
+        box-shadow: 0px 0px 40px 0px rgba(16, 23, 40, 0.08);
+        padding: 50px 50px 50px 50px;
+        position: relative;
+        z-index: 1;
+        @media #{$lg} {
+            padding: 50px 30px 50px 30px;
+        }
+        @media #{$xs} {
+            padding: 50px 20px 50px 20px;
+        }
+    }
+    &-input {
+        & input ,
+        & textarea {
+            margin-bottom: 0px;
+            padding: 5px 30px;
+            border: 1px solid transparent;
+            background-color: #f2f4f8;
+            &:focus {
+                border-color: var(--tp-theme-primary);
+                &::placeholder {
+                    font-size: 0;
+                }
+            }
+            @include placeholder {
+                font-size: 14px;
+                color: #b0aec3;
+            }
+        }
+        & textarea {
+            padding: 23px 30px;
+            height: 150px;
+            resize: none;
+        }
+    }
+    &-btn {
+        & .tp-btn {
+            color: var(--tp-common-white);
+            font-size: 16px;
+            font-weight: 700;
+            background-color: var(--tp-theme-secondary);
+            padding: 22px 50px;
+            line-height: 1;
+            &::before {
+                background: var(--tp-theme-primary);
+            }
+        }
+    }
+    &-shape {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        & img {
+            opacity: 0.4;
+        }
+    }
+}
+
+.#{$theme-prifix}-contact {
+    &-main {
+        margin-right: -30px;
+        @media #{$lg,$md,$xs} {
+            margin-right: 0;
+        }
+        & .tp-section-sub-title i {
+            font-size: 30px;
+            color: var(--tp-theme-secondary);
+            margin-right: 15px;
+            transform: translateY(8px);
+            display: inline-block;
+        }
+    }
+    &-location {
+        position: relative;
+        padding-left: 40px;
+        flex: 0 0 auto;
+        @media #{$xs} {
+            padding-left: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 2px;
+            background-color: rgba($color: $brand-purple-deep, $alpha: 0.2);
+        }
+        & span {
+            color: var(--tp-theme-primary);
+            font-size: 18px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 13px;
+        }
+        & a {
+            display: block;
+            font-size: 16px;
+            color: var(--tp-text-1);
+            margin-bottom: 10px;
+            &:hover {
+                color: var(--tp-theme-primary);
+            }
+            & i {
+                margin-right: 5px;
+            }
+        }
+        &-wrap {
+            @media #{$xs} {
+                flex-wrap: wrap;
+            }
+        }
+    }
+    &-details{
+        &-form {
+            border-top: 8px solid var(--tp-theme-primary);
+            padding-top: 30px;
+            &-input {
+                position: relative;
+                & input ,
+                & textarea {
+                    font-size: 16px;
+                    color: #b0aec3;
+                    padding-left: 45px;
+                    color: var(--tp-theme-4);
+                    border: transparent;
+                    height: 60px;
+                    background-color: var(--tp-grey-2);
+                    &:focus {
+                        border: 1px solid var(--tp-theme-primary);
+                    }
+                    &::placeholder {
+                        font-size: 16px;
+                        color: #b0aec3;
+                    }
+                }
+                & textarea {
+                    resize: none;
+                    height: 145px;
+                }
+                & span {
+                    position: absolute;
+                    top: 17px;
+                    left: 20px;
+                    color: var(--tp-theme-4);
+                    font-size: 16px;
+                }
+            }
+            &-btn {
+                & .tp-btn {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

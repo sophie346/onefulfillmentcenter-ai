@@ -1,0 +1,160 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  2.15 Section Title
+/*----------------------------------------*/
+
+.#{$theme-prifix}-section{
+    &-sub-title{
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--tp-theme-primary);
+        position: relative;
+        padding-left: 15px;
+        margin-bottom: 20px;
+        display: inline-block;
+        &::before {
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 6px;
+            width: 6px;
+            background-color: var(--tp-theme-secondary);
+            border-radius: 50%;
+        }
+    }
+    &-title{
+        font-size: 40px;
+        color: var(--tp-theme-secondary);
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 22px;
+        @media #{$xs} {
+            font-size: 28px;
+        }
+        & br {
+            @media #{$xs} {
+                display: none;
+            }
+        }
+        &-wrapper{
+            & p{
+                font-size: 16px;
+                & br {
+                    @media #{$md,$xs} {
+                        display: none;
+                    }
+                }
+            }
+            & span {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--tp-theme-primary); 
+                line-height: 32px;           
+            }
+        }
+        &-inner{
+            display: inline-block;
+        }
+        &-info {
+            &-icon {
+                flex: 0 0 auto;
+                margin-right: 24px;
+                & i {
+                    font-size: 48px;
+                    color: var(--tp-theme-secondary);
+                }
+            }
+            &-text {
+                & span {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: var(--tp-theme-primary); 
+                    line-height: 32px;  
+                    & br {
+                        @media #{$lg,$xs} {
+                            display: none;
+                        }
+                    } 
+                }
+            }
+        }
+    }
+    &-two {
+        & .tp-section-sub-title {
+            padding-left: 0;
+            &::before {
+                display: none;
+            }
+        }
+    }
+    &-3 {
+        & .tp-section-sub-title {
+            padding-left: 30px;
+            &::before {
+                height: 2px;
+                width: 20px;
+                border-radius: 0;
+            }
+        }
+    }
+    &-white-two {
+        & .tp-section-sub-title {
+            padding-left: 30px;
+            &::before {
+                height: 2px;
+                width: 20px;
+                border-radius: 0;
+                background-color: var(--tp-common-white);
+            }
+        }
+        & .tp-section-title {
+            color: var(--tp-common-white);
+            & br {
+                @media #{$lg} {
+                    display: none;
+                }
+            }
+        }
+        & .tp-section-title-wrapper p {
+            color: #8f8da0;
+        }
+    }
+    &-red {
+        & .tp-section-sub-title {
+            padding-left: 0px;
+            color: var(--tp-theme-3);
+            &::before {
+                display: none;
+            }
+        }
+        & .tp-section-title-info-text span {
+            color: var(--tp-theme-3);
+        }
+        &-white {
+            & .tp-section-sub-title {
+                padding-left: 0px;
+                color: var(--tp-theme-3);
+                &::before {
+                    display: none;
+                }
+            }
+            & .tp-section-title {
+                color: var(--tp-common-white);
+            }
+            & .tp-section-title-wrapper p {
+                color: #cccccc;
+            }
+        }
+    }
+}
+.tp-section-white {
+    & .tp-section-sub-title::before {
+        background-color: var(--tp-common-white);
+    }
+    & .tp-section-title {
+        color: var(--tp-common-white);
+    }
+}

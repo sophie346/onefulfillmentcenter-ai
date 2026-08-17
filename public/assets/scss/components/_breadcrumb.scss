@@ -1,0 +1,144 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  2.11 Breadcrumb
+/*----------------------------------------*/
+
+.breadcrumb{
+    &-wrap {
+        position: relative;
+        padding-top: 175px;
+        padding-bottom: 170px;
+        z-index: 10;
+        overflow: hidden;
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #03020a;
+            z-index: -1;
+        }
+    }
+    &-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        mix-blend-mode: luminosity;
+        opacity: 0.45;
+        z-index: -1;
+    }
+    &-title{
+        font-size: 40px;
+        line-height: 1;   
+        color: #ffffff; 
+        margin-bottom: 0;
+    }
+    &-link {
+        display: inline-block;
+        background-color: rgba($color: #fff, $alpha: 0.1);
+        padding: 7px 26px;
+        & span {
+            font-weight: 700;
+            color: var(--tp-common-white);
+            font-size: 16px;
+        }
+    }
+    &-item-active {
+        & a {
+            &:hover {
+                color: var(--tp-theme-primary);
+            }
+        }
+    }
+    &-shape {
+        &-1 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            & img {
+                opacity: 0.4;
+            }
+        }
+        &-2 {
+            position: absolute;
+            z-index: 3;
+            top: -200px;
+            right: 320px;
+            height: 200%;
+            width: 212px;
+            transform: rotate(-33.83deg);
+            transition: transform 0.3s ease-in-out;
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgb(18, 45, 112);
+                opacity: 0.6;
+            }
+        }
+        &-3 {
+            position: absolute;
+            z-index: 2;
+            top: -200px;
+            right: 570px;
+            height: 200%;
+            width: 160px;
+            transform: rotate(-33.83deg);
+            transition: transform 0.3s ease-in-out;
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #{$brand-orange};
+                opacity: 0.7;
+            }
+        }
+        &-4 {
+            position: absolute;
+            right: 21.2%;
+            top: 0%;
+            opacity: 0.5;
+            z-index: -1;
+            @media #{$xl} {
+                right: 23%;
+            }
+            @media #{$md} {
+                display: none;
+            }
+            @media #{$xs} {
+                display: none;
+            }
+        }
+        &-5 {
+            position: absolute;
+            right: 7.8%;
+            top: 0%;
+            opacity: 0.5;
+            z-index: -1;
+            @media #{$xl} {
+                right: 1.8%;
+            }
+            @media #{$md} {
+                right: -8.2%;
+            }
+            @media #{$xs} {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,191 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.2 Brand css
+/*----------------------------------------*/
+
+.#{$theme-prifix}-brand{
+    &-title {
+        font-size: 26px;
+        @media #{$lg} {
+            font-size: 22px;
+        }
+        & span {
+            color: var(--tp-theme-primary);
+        }
+    }
+    &-item{
+        border: 1px solid #f5f5f5;
+        text-align: center;
+        margin: 0 0 -1px -1px;
+        padding: 91.5px 0;
+        position: relative;
+        &:hover {
+            border-color: #101728;
+            z-index: 1;
+        }
+        & img{
+            opacity: .15;
+            @extend %transition;
+            height: 35px;
+            object-fit: cover;
+        }
+        &:hover{
+            & img{
+                opacity: 1;
+            }
+        }
+    }
+}
+.#{$theme-prifix}-brand {
+    &-two {
+        &-item{
+            border: 1px solid #f5f5f5;
+            text-align: center;
+            margin: -1px 0 -1px -1px;
+            padding: 91.5px 0;
+            position: relative;
+            @include transition-mul(.3s);
+            &:hover {
+                border-color: #101728;
+                z-index: 1;
+            }
+            & img{
+                opacity: .15;
+                @extend %transition;
+                height: 35px;
+                object-fit: cover;
+            }
+            &:hover{
+                & img{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+.#{$theme-prifix}-brand {
+    &-3 {
+        &-item {
+            & img {
+                opacity: 0.1;
+                @include transition-mul(.3s);
+                cursor: pointer;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+.#{$theme-prifix}-brand {
+    &-4 {
+        &-item {
+            background-color: transparent;
+            text-align: center;
+            padding: 43px 0;
+            height: 120px;
+            object-fit: cover;
+            cursor: pointer;
+            @include transition-mul(.3s);
+            &:hover {
+                background-color: rgb(239, 241, 244);
+                & img {
+                    opacity: 1;
+                }
+            }
+            & img {
+                opacity: 0.12;
+                @include transition-mul(.3s);
+                max-width: 100%;
+            }
+        }
+    }
+}
+.#{$theme-prifix}-brand {
+    &-5 {
+        &-wrap {
+            border-top: 1px solid rgba($color: $brand-surface-dark, $alpha: 0.078);
+            &-title {
+                font-size: 16px;
+                color: var(--tp-theme-3);
+                font-weight: 700;
+                transform: translateY(-14px);
+                background: var(--tp-common-white);
+                display: inline-block;
+                padding: 0 25px;
+                margin-bottom: 0;
+            }
+        }
+        &-item {
+            border: 1px solid #ddd;
+            position: relative;
+            margin-left: -1px;
+            &:hover {
+                & .tp-brand-5-thumb {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                & .tp-brand-5-item-logo img {
+                    opacity: 1;
+                    filter: brightness(20);
+                }
+            }
+            &-logo {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50% , -50%);
+                z-index: 2;
+                & img {
+                    opacity: 0.12;
+                    @include transition-mul(.4s);
+                }
+            }
+        }
+        &-thumb {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            @include transition-mul(.4s);
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgb(217, 10, 44);
+                mix-blend-mode: darken;
+                z-index: 1;
+            }
+            & img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+.counter-one__box-one {
+	position: absolute;
+	bottom: -106px;
+	right: -106px;
+	height: 106px;
+	width: 106px;
+	background-color: var(--tp-theme-primary);
+	animation: boxRotate 8s linear infinite;
+	transform-origin: left;
+}
+.counter-one__box-two {
+	position: absolute;
+	bottom: -212px;
+	right: 0;
+	height: 106px;
+	perspective: 106px;
+	width: 106px;
+	background-color: var(--tp-theme-3);
+	animation: boxRotate 8s linear infinite;
+	transform-origin: right;
+}

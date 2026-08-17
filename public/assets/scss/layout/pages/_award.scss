@@ -1,0 +1,185 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.8 Award css
+/*----------------------------------------*/
+
+.#{$theme-prifix}-award{
+    $self : &;
+    &-inner{
+        border-bottom: 1px solid rgba($color: $white, $alpha: .12);
+    }
+    &-item{
+        position: relative;
+        @extend %transition;
+        border-bottom: 1px solid rgba($color: $white, $alpha: .12);
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        &::after{
+            position: absolute;
+            content: '';
+            left: auto;
+            right: 0;
+            bottom: 0;
+            width: 0;
+            background-color: #BCE70C;
+            height: 1px;
+            @extend %transition;
+        }
+
+        &:hover{
+            padding-left: 36px;
+            &::after{
+                width: 100%;
+                left: 0;
+                right: auto;
+            }
+            #{$self}{
+                &-arrow{
+                    visibility: visible;
+                    opacity: 1;
+                }
+                &-btn{
+                    & svg{
+                        @include transform(translateY(-2px) rotate(45deg));
+                    }
+                }
+            }
+        }
+    }
+    &-title{
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--tp-common-white);
+        margin-bottom: 0;
+        @extend %ff-dmsans;
+    }
+    &-content{
+        & p{
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba($color: $white, $alpha: .6);
+        }
+    }
+    &-btn{
+        display: inline-block;
+        background-color: var(--tp-common-white);
+        @include rounded-btn(44px, 44px, 44px);
+        text-align: center;
+        color: #0A1603;
+        & svg{
+            @extend %transition;
+            @extend %svg-2;
+        }
+
+        &:hover{
+            background-color: #BCE70C;
+            color: #0A1603;
+        }
+    }
+    &-arrow{
+        position: absolute;
+        top: 35px;
+        left: 0;
+        @include transform(translateY(-50%));
+        color: var(--tp-common-white);
+        visibility: hidden;
+        opacity: 0;
+        @extend %transition;
+        & svg{
+            @extend %svg-2;
+        }
+
+    }
+    &-text{
+        &-wrapper{
+            @include transform(translateY(115px));
+        }
+        &-outline{
+            @extend %ff-abril;
+            font-weight: 400;
+            font-size: 140px;
+            line-height: 1.14;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            -webkit-text-stroke-color: rgba($color: $white, $alpha: .08);
+            -webkit-text-stroke-width: 1px;
+            -moz-text-stroke-color:  rgba($color: $white, $alpha: .08);
+            -moz-text-stroke-width: 1px;
+            -moz-text-fill-color: transparent;
+            display: inline-block;
+            @include transform(rotate(-45deg));
+        }
+        &-fill{
+            @extend %ff-abril;
+            font-weight: 400;
+            font-size: 180px;
+            line-height: .89;
+            color: #263D1A;
+            mix-blend-mode: luminosity;
+            @include transform(rotate(-45deg) translate(-50px, -37px));
+        }
+    }
+    &-shape{
+        &-1{
+            position: absolute;
+            bottom: -14%;
+            right: 10%;
+        }
+    }
+
+}
+.#{$theme-prifix}-offer {
+    &-bg {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    &-item {
+        text-align: center;
+        padding: 40px 15px 32px 15px;
+        border: 1px solid #4f4d5e;
+        background-color: transparent;
+        @include transition-mul(.3s);
+        &:hover {
+            background-color: var(--tp-theme-primary);
+            border-color: var(--tp-theme-primary);
+            & .tp-offer-item-content p {
+                color: #c3d4ff;
+            }
+        }
+        &-icon {
+            margin-bottom: 15px;
+            & i {
+                font-size: 48px;
+                color: var(--tp-common-white);
+            }
+        }
+        &-title {
+            color: var(--tp-common-white);
+            font-size: 22px;
+            margin-bottom: 13px;
+            @media #{$xl} {
+                font-size: 20px;
+            }
+        }
+        &-content {
+            & p {
+                color: #8f8da0;
+                font-size: 14px;
+                line-height: 24px;
+                margin-bottom: 16px;
+            }
+        }
+        &-btn {
+            & a {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--tp-common-white);
+                & i {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

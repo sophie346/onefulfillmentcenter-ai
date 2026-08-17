@@ -1,0 +1,48 @@
+@use '../utils' as *;
+/*----------------------------------------*/
+/*  2.9 Pagination
+/*----------------------------------------*/
+
+.basic-pagination{
+	& ul{
+		& li{
+			display: inline-block;
+			&:not(:last-child){
+				margin-right: 6px;
+			}
+			& a,
+			& span{
+				display: inline-block;
+				width: 48px;
+				height: 48px;
+				line-height: 48px;
+				text-align: center;
+				border: 1px solid var(--tp-grey-1);
+				font-size: 16px;
+				font-weight: 500;
+				color: var(--tp-theme-4); 
+				@media #{$xs} {
+					width: 40px;
+					height: 40px;
+					line-height: 40px;
+				}
+				&:hover,
+				&.current{
+					background: var(--tp-theme-primary);
+					border-color: var(--tp-theme-primary);
+					color: var(--tp-common-white);
+					 
+				}
+			}
+		}
+		& .selected{
+			background: var(--tp-theme-primary);
+			& a {
+				color: var(--tp-common-white);
+			}
+		} 
+		& :hover{
+			color: var(--tp-common-white);
+		}
+	}
+}

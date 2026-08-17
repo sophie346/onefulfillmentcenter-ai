@@ -1,0 +1,130 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState, type FormEvent } from "react";
+import { company, socialLinks } from "@/data/brandArchitecture";
+import { OFC_B2B_FULFILLMENT_PATH, OFC_WAREHOUSE_PATH } from "@/data/ofcNav";
+
+const phoneTel = `tel:${company.phone.replace(/[^+\d]/g, "")}`;
+
+const FOOTER_COLS = [
+  {
+    title: "Pages",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Warehousing and Inventory Storage", href: OFC_WAREHOUSE_PATH },
+      { label: "B2C & B2B Wholesale Fulfillment", href: OFC_B2B_FULFILLMENT_PATH },
+    ],
+  },
+  {
+    title: "Get Started",
+    links: [{ label: "Request a Demo", href: "#newsletter" }],
+  },
+  {
+    title: "Contact",
+    links: [
+      { label: company.phone, href: phoneTel },
+      { label: company.investorEmail, href: `mailto:${company.investorEmail}` },
+    ],
+  },
+] as const;
+
+const OfcNewsletterFooter = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setStatus("sent");
+    setEmail("");
+  };
+
+  return (
+    <>
+      <section className="ofc-newsletter" id="newsletter">
+        <div className="ofc-container">
+          <div className="ofc-newsletter__bar">
+            <h3>Subscribe Newsletter to Get Updates</h3>
+            <form className="ofc-newsletter__form" onSubmit={onSubmit}>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Enter your email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                aria-label="Email address"
+              />
+              <button className="ofc-btn ofc-btn--primary" type="submit">
+                {status === "sent" ? "Subscribed" : "Subscribe"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer className="ofc-footer">
+        <div className="ofc-container">
+          <div className="ofc-footer__grid">
+            <div className="ofc-footer__brand">
+              <Link href="/">
+                <Image
+                  src="/assets/img/logo/onefulfillcenter-logo.png"
+                  alt="One Fulfillment Center"
+                  width={180}
+                  height={38}
+                />
+              </Link>
+              <p>
+                Distributed fulfillment infrastructure for brands and retailers:
+                warehousing, inventory storage, B2B/B2C order fulfillment, reverse
+                logistics, and shipping support.
+              </p>
+              <p>
+                <Link href={phoneTel}>{company.phone}</Link>
+              </p>
+              <p>
+                <Link href={`mailto:${company.investorEmail}`}>{company.investorEmail}</Link>
+              </p>
+              <p>{company.address}</p>
+            </div>
+
+            {FOOTER_COLS.map((column) => (
+              <div className="ofc-footer__col" key={column.title}>
+                <h4>{column.title}</h4>
+                <ul>
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.href}>{link.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="ofc-footer__bottom">
+            <p>© {new Date().getFullYear()} One Fulfillment Center</p>
+            <div className="ofc-footer__social">
+              {socialLinks.map((item) => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  aria-label={item.title}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <i className={item.icon} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+};
+
+export default OfcNewsletterFooter;

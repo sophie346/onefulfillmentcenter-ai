@@ -1,0 +1,103 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  7.14 Portfolio css
+/*----------------------------------------*/
+
+.#{$theme-prifix}-portfolio{
+    $self  : &;
+    &-item{
+        &:hover{
+            #{$self}{
+                &-thumb{
+                    @include transform(scale(.95));
+                    &-img{
+                        @include transform(scale(1.2));
+                    }
+                }
+            }
+
+        }
+    }
+    &-title{
+        @extend %ff-dmsans;
+        font-size: 30px;
+        color: var(--tp-common-white);
+        margin-bottom: 0;
+        font-weight: 700;
+    }
+    &-meta{
+        &-count{
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba($color: $white, $alpha: .7);
+            display: inline-block;
+        }
+        & span{
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba($color: $white, $alpha: .7);
+            position: relative;
+            padding-right: 27px;
+            margin-right: 6px;
+            &::after{
+                position: absolute;
+                content: '';
+                right: 0;
+                top: 50%;
+                width: 20px;
+                height: 1px;
+                background-color: rgba($color: $white, $alpha: .7);
+            }
+            &:last-child{
+                padding-right: 0;
+                margin-right: 0;
+
+                &::after{
+                    display: none;
+                }
+            }
+        }
+    }
+    &-thumb{
+        margin-bottom: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 560px;
+        position: relative;
+        @include transition-mul((all .7s cubic-bezier(.67,0,.285,1)));
+        & a{
+            display: block
+        }
+        &-img{
+            @extend %bg-thumb;
+            @include transition-mul((all .7s cubic-bezier(.67,0,.285,1)));
+        }
+        
+    }
+    &-more{
+        margin-left: 270px;
+    }
+    &-top-text{
+        position: absolute;
+        top: 6%;
+        right: -14%;
+
+        & p{
+            @extend %ff-abril;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 250px;
+            line-height: .8;
+            @include gradient((90.68deg, #BCFFA4 8.59%, #F59571 86.19%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            mix-blend-mode: luminosity;
+            opacity: 0.2;
+            margin-bottom: 0;
+        }
+    }
+}

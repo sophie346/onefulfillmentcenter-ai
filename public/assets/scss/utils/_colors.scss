@@ -1,0 +1,55 @@
+// OneChannelAdmin logo palette (top-logo.svg)
+$brand-purple-deep: #382a7e;
+$brand-purple: #6252a2;
+$brand-purple-mid: #984299;
+$brand-magenta-soft: #b85ea5;
+$brand-magenta: #de2363;
+$brand-orange: #ec7223;
+$brand-orange-light: #f58242;
+$brand-gold: #fcb753;
+$brand-surface-dark: #2a2060;
+
+$colors: (
+    'common': (
+        'white': #ffffff,
+        'black': #020B18,
+        'black-2': #0C1B05,
+    ),
+    'heading': (
+        'primary': #020B18,
+    ),
+    'headingDark': (
+        'primary': #020B18,
+    ),
+    'gradient': (
+        'primary': linear-gradient(0deg, #{$brand-purple-deep} 0%, rgba(135, 134, 142, 0.1019607843) 90%, rgba(255, 255, 255, 0) 100%),
+        'secondary': linear-gradient(20deg, #{$brand-orange} 0%, rgba(236, 114, 35, 0.0509803922) 65%, rgba(236, 114, 35, 0) 100%),
+        '3': linear-gradient(0deg, #{$brand-orange} 0%, #{$brand-purple} 58%, #{$brand-purple-deep} 100%),
+        '4': linear-gradient(0deg, #{$brand-orange} 0%, rgba(236, 114, 35, 0.0509803922) 95%, rgba(236, 114, 35, 0) 100%),
+        '5': linear-gradient(-180deg, rgba(56, 42, 126, 0) 50.71%, #{$brand-magenta} 95.16%),
+    ),
+    'grey': (
+        '1':#F6F7F9,
+        '2': #f2f4f8,
+    ),
+    'text': (
+        'body':#55585B,
+        '1': #777181,
+    ),
+    'theme': (
+        '1': $brand-orange,
+        'primary': $brand-orange,
+        'secondary': $brand-purple-deep,
+        '3': $brand-magenta,
+        '4': $brand-surface-dark,
+    ),
+    'border': (
+        'primary': #EAEBED,
+        'secondary': #F0F2F4,
+    )
+);
+
+$white : #fff;
+$black : #020B18;
+$theme-primary : $brand-orange;
+$border-primary : #EAEBED;
