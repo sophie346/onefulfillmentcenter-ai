@@ -149,15 +149,6 @@ export async function fetchPageSeo(
     if (!seoData) seoData = result;
   }
 
-  if (process.env.NODE_ENV === "development") {
-    console.info("[seo] pageseodata", {
-      path,
-      candidates,
-      hasCmsSeo: hasCmsSeoFields(seoData),
-      title: seoData?.seo?.metaTitle || seoData?.title,
-    });
-  }
-
   return { seoData, canonicalUrl, path };
 }
 
