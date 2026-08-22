@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { ofcNav } from "@/data/ofcNav";
 
@@ -11,6 +12,7 @@ type Props = {
 
 const OfcTwHeader = ({ activeHref }: Props) => {
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[#070b12]/95 backdrop-blur-md">
@@ -27,26 +29,43 @@ const OfcTwHeader = ({ activeHref }: Props) => {
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {ofcNav.map((item) => {
-            const isActive = activeHref === item.href;
+            const isActive =
+              activeHref === item.href ||
+              item.children?.some((child) => child.href === activeHref);
             return (
-              <Link
-                key={item.title}
-                href={item.href}
-                className={`inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold transition ${
-                  isActive ? "text-[#ff6a3d]" : "text-white/85 hover:text-white"
-                }`}
-              >
-                {item.title}
-              </Link>
+              <div key={item.title} className="group relative">
+                <Link
+                  href={item.href}
+                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                    isActive ? "text-[#ff6a3d]" : "text-white/85 hover:text-white"
+                  }`}
+                >
+                  {item.title}
+                  {item.children ? <ChevronDown size={14} aria-hidden="true" /> : null}
+                </Link>
+                {item.children ? (
+                  <div className="invisible absolute left-0 top-full z-50 grid min-w-[520px] grid-cols-2 gap-1 rounded-2xl border border-white/10 bg-[#101826] p-3 opacity-0 shadow-2xl transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="rounded-xl px-3 py-2 text-sm text-white/85 hover:bg-white/5 hover:text-white"
+                      >
+                        {child.title}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             );
           })}
         </nav>
 
         <Link
-          href="/#newsletter"
-          className="hidden rounded-full bg-[#2fd3c8] px-5 py-2.5 text-sm font-bold text-[#04201e] shadow-[0_10px_28px_rgba(47,211,200,0.25)] transition hover:-translate-y-0.5 md:inline-flex"
+          href="#quote"
+          className="hidden rounded-full bg-[#2fd3c8] px-5 py-2.5 text-sm font-bold text-[#04201e] md:inline-flex"
         >
-          Request a Demo
+          Get a Quote
         </Link>
 
         <button
@@ -65,21 +84,49 @@ const OfcTwHeader = ({ activeHref }: Props) => {
         <div className="border-t border-white/10 bg-[#070b12] px-6 py-4 xl:hidden">
           <div className="mx-auto flex max-w-6xl flex-col gap-1">
             {ofcNav.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block rounded-lg px-2 py-3 text-sm font-semibold text-white"
-              >
-                {item.title}
-              </Link>
+              <div key={item.title}>
+                {item.children ? (
+                  <>
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between rounded-lg px-2 py-3 text-left text-sm font-semibold text-white"
+                      onClick={() =>
+                        setExpanded((current) => (current === item.title ? null : item.title))
+                      }
+                    >
+                      {item.title}
+                      <ChevronDown size={16} />
+                    </button>
+                    {expanded === item.title
+                      ? item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setOpen(false)}
+                            className="block rounded-lg px-4 py-2 text-sm text-white/70"
+                          >
+                            {child.title}
+                          </Link>
+                        ))
+                      : null}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-lg px-2 py-3 text-sm font-semibold text-white"
+                  >
+                    {item.title}
+                  </Link>
+                )}
+              </div>
             ))}
             <Link
-              href="/#newsletter"
+              href="#quote"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-[#2fd3c8] px-5 py-3 text-sm font-bold text-[#04201e]"
             >
-              Request a Demo
+              Get a Quote
             </Link>
           </div>
         </div>

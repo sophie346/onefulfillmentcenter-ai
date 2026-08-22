@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
 import Wrapper from "@/layout/Wrapper";
 import WarehousingInventoryStoragePage from "@/components/solutions/WarehousingInventoryStoragePage";
+import { generateSolutionMetadata, SeoStructuredData } from "@/lib/seo";
+import { OFC_WAREHOUSE_PATH } from "@/data/ofcNav";
 
-export const metadata: Metadata = {
-  title: "Warehousing and Inventory Storage",
-  description:
-    "Complete solution for inventory storage with distributed warehousing, real-time tracking, kitting, returns, and secure fulfillment operations.",
-};
+export const revalidate = 60;
 
-const Page = () => {
+const SLUG = "warehousing-and-inventory-storage";
+const PAGE_TITLE = "Warehousing and Inventory Storage";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSolutionMetadata(SLUG);
+}
+
+const Page = async () => {
   return (
     <Wrapper>
+      <SeoStructuredData path={OFC_WAREHOUSE_PATH} fallbackTitle={PAGE_TITLE} />
       <div id="top">
         <WarehousingInventoryStoragePage />
       </div>

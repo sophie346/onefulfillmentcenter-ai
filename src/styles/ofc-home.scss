@@ -291,6 +291,11 @@
     transition: background 0.15s ease;
   }
 
+  .ofc-header__dropdown--solutions .ofc-header__dropdown-link {
+    display: block;
+    grid-template-columns: none;
+  }
+
   .ofc-header__dropdown-link:hover {
     background: #f3f6f9;
   }

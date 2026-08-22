@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { company, socialLinks } from "@/data/brandArchitecture";
-import { OFC_B2B_FULFILLMENT_PATH, OFC_WAREHOUSE_PATH } from "@/data/ofcNav";
+import { SERVICE_NAV } from "@/data/ofcNav";
 
 const phoneTel = `tel:${company.phone.replace(/[^+\d]/g, "")}`;
 
 const FOOTER_COLS = [
   {
-    title: "Pages",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "Warehousing and Inventory Storage", href: OFC_WAREHOUSE_PATH },
-      { label: "B2C & B2B Wholesale Fulfillment", href: OFC_B2B_FULFILLMENT_PATH },
-    ],
+    title: "Fulfillment",
+    links: SERVICE_NAV.slice(0, 6).map((item) => ({ label: item.title, href: item.href })),
+  },
+  {
+    title: "More services",
+    links: SERVICE_NAV.slice(6).map((item) => ({ label: item.title, href: item.href })),
   },
   {
     title: "Get Started",
