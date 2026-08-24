@@ -50,7 +50,7 @@
 }
 
 .spatial-wrap {
-  width: min(1160px, calc(100% - 2rem));
+  width: min(1400px, calc(100% - 2rem));
   margin-inline: auto;
 }
 
@@ -235,7 +235,7 @@
 .spatial-nav__track {
   display: flex;
   gap: 0.25rem;
-  width: min(1160px, calc(100% - 2rem));
+  width: min(1400px, calc(100% - 2rem));
   margin-inline: auto;
   overflow-x: auto;
   padding: 0.45rem 0;
@@ -953,5 +953,253 @@
   .spatial-nav,
   .spatial-header {
     position: static;
+  }
+}
+
+.home-spatial {
+  padding-bottom: 0;
+}
+
+.home-hero {
+  padding: 1.75rem 0 0.5rem;
+}
+
+.home-hero__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.home-hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.home-hero__photo {
+  height: 240px;
+}
+
+.home-stack {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0.5rem 0 2.5rem;
+}
+
+.home-stack .spatial-block {
+  margin-bottom: 0;
+}
+
+.home-ops {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-ops__card {
+  display: grid;
+  gap: 0.45rem;
+  color: inherit;
+}
+
+.home-ops__media {
+  position: relative;
+  display: block;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: #d7dee8;
+}
+
+.home-ops__media img {
+  object-fit: cover;
+}
+
+.home-ops__card strong {
+  font-size: 0.92rem;
+}
+
+.home-ops__card > span:last-child {
+  color: #5c6b80;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.home-how {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.home-how h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+}
+
+.home-how__photo {
+  min-height: 240px;
+}
+
+.home-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-chain li {
+  border: 1px solid #e4e8ef;
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  background: #f8fafc;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.home-services {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-services a {
+  border: 1px solid #e4e8ef;
+  border-radius: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  background: #f8fafc;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.home-services a:hover {
+  border-color: #0f766e;
+  color: #0f766e;
+}
+
+.home-gain-mark {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.4rem;
+  border-radius: 999px;
+  background: #0f766e;
+}
+
+.home-connect {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.home-connect p {
+  margin: 0;
+  color: #5c6b80;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.home-connect strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: #122033;
+  font-size: 0.8rem;
+}
+
+.home-foot {
+  border-top: 1px solid #e4e8ef;
+  padding: 1.75rem 0 1.25rem;
+  background: #fff;
+}
+
+.home-foot__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.home-foot h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f766e;
+}
+
+.home-foot ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-foot li {
+  margin: 0.3rem 0;
+}
+
+.home-foot a {
+  color: #3d4d63;
+  font-size: 0.85rem;
+}
+
+.home-foot__grid p {
+  margin: 0.75rem 0 0;
+  color: #5c6b80;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.home-foot__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eef1f6;
+  color: #7a8798;
+  font-size: 0.8rem;
+}
+
+.home-foot__social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+@media (min-width: 700px) {
+  .home-hero__grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+  }
+
+  .home-hero__photo {
+    height: 320px;
+  }
+
+  .home-ops {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .home-ops__media {
+    height: 150px;
+  }
+
+  .home-how {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+
+  .home-how__photo {
+    min-height: 360px;
+  }
+
+  .home-services {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .home-connect {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-foot__grid {
+    grid-template-columns: 1.3fr 1fr 1fr;
   }
 }

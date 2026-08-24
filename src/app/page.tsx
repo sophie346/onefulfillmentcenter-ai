@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Wrapper from "../layout/Wrapper";
 import HomeOne from "@/components/homes/multi-page/home";
 import { createWebsiteMetadata, SeoStructuredData } from "@/lib/seo";
+import "@/styles/ofc-tw.css";
 
 export const revalidate = 60;
 
