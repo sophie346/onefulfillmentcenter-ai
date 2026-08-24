@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { ofcNav } from "@/data/ofcNav";
+import { company } from "@/data/brandArchitecture";
 
 const OfcHeader = () => {
   const [open, setOpen] = useState(false);
@@ -51,8 +52,8 @@ const OfcHeader = () => {
           ))}
         </nav>
 
-        <Link className="ofc-btn ofc-btn--primary ofc-header__cta" href="/ecommerce-fulfillment/#quote">
-          Get a Quote
+        <Link className="ofc-btn ofc-btn--primary ofc-header__cta" href={`mailto:${company.investorEmail}`}>
+          Talk to a specialist
         </Link>
 
         <button
@@ -96,8 +97,8 @@ const OfcHeader = () => {
             )}
           </div>
         ))}
-        <Link className="ofc-btn ofc-btn--primary" href="/ecommerce-fulfillment/#quote" onClick={() => setOpen(false)}>
-          Get a Quote
+        <Link className="ofc-btn ofc-btn--primary" href={`mailto:${company.investorEmail}`} onClick={() => setOpen(false)}>
+          Talk to a specialist
         </Link>
       </div>
     </header>

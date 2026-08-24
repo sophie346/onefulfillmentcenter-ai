@@ -1,116 +1,115 @@
 import Link from "next/link";
 import {
+  ArrowRight,
   Boxes,
-  CheckCircle2,
+  Check,
   Cpu,
   Plug,
   ShieldCheck,
-  Truck,
 } from "lucide-react";
 import OfcTwHeader from "./OfcTwHeader";
-import QuoteForm from "./QuoteForm";
+import SpatialNav from "./SpatialNav";
+import SpatialPhoto from "./SpatialPhoto";
 import {
   relatedServices,
   servicePath,
   type ServiceLanding,
 } from "@/data/serviceLandings";
 import { company } from "@/data/brandArchitecture";
+import { visualsForService } from "@/data/serviceVisuals";
 
 const TRUST = [
-  "Fast onboarding",
-  "Real-time inventory visibility",
-  "Multi-channel fulfillment",
-  "B2B + B2C",
-  "API & ecommerce integrations",
+  "Live inventory sync",
+  "B2B + B2C + marketplaces",
+  "WMS, shipping & returns",
+  "Rate shopping · parcel / LTL / FTL",
 ];
 
 const BENEFITS = [
-  { title: "Faster fulfillment", copy: "Reduce time between order creation and carrier handoff." },
-  { title: "Lower operational complexity", copy: "Avoid running warehouse staffing, systems, and infrastructure yourself." },
-  { title: "Better inventory accuracy", copy: "Know what is available and where it is stored." },
-  { title: "Lower shipping complexity", copy: "Compare services and route orders efficiently." },
-  { title: "Easier scaling", copy: "Grow SKUs, channels, and volume without rebuilding operations." },
-  { title: "Better customer experience", copy: "Accurate orders, faster delivery, and easier returns." },
+  { title: "Faster handoff", copy: "Shorter time from order to carrier." },
+  { title: "Less ops overhead", copy: "No warehouse staffing to run yourself." },
+  { title: "Accurate stock", copy: "Know what is available and where." },
+  { title: "Smarter shipping", copy: "Compare services before you print a label." },
+  { title: "Room to scale", copy: "Add SKUs and channels without a rebuild." },
+  { title: "Better CX", copy: "Correct orders, tracking, and returns." },
 ];
 
 const TECH = [
-  { title: "Connected inventory", copy: "Real-time inventory across warehouses and channels." },
-  { title: "Order management", copy: "B2B, B2C, and marketplace orders in one environment." },
-  { title: "Warehouse management", copy: "Receiving, putaway, picking, packing, and inventory movement." },
-  { title: "AI inventory intelligence", copy: "Forecast demand and identify replenishment needs." },
-  { title: "Shipping automation", copy: "Carrier selection, labels, tracking, and delivery status." },
-  { title: "Analytics", copy: "Monitor orders, inventory, speed, shipping cost, returns, and warehouse performance." },
+  { title: "Connected inventory", copy: "Stock across warehouses, stores, 3PLs, and channels." },
+  { title: "Order management", copy: "Storefront, marketplace, and wholesale orders in one queue." },
+  { title: "Warehouse WMS", copy: "Receive, putaway, pick, pack, count, and ship." },
+  { title: "Demand planning", copy: "Forecast and replenish before stockouts." },
+  { title: "Shipping automation", copy: "Rate shop parcel, LTL, and FTL; track to the door." },
+  { title: "Returns / RMA", copy: "Authorize, inspect, restock, or disposition." },
 ];
 
 const INTEGRATIONS = [
-  { title: "Ecommerce", items: ["Shopify", "Shopify Plus", "WooCommerce", "BigCommerce", "Magento"] },
+  { title: "Storefronts", items: ["Shopify", "Shopify Plus", "WooCommerce", "BigCommerce", "Magento"] },
   { title: "Marketplaces", items: ["Amazon", "Walmart", "eBay", "TikTok Shop", "Etsy"] },
-  { title: "ERP & accounting", items: ["OneChannelAdmin", "NetSuite", "QuickBooks", "Xero"] },
-  { title: "Shipping", items: ["UPS", "FedEx", "USPS", "DHL"] },
+  { title: "ERP & POS", items: ["OneChannelAdmin", "NetSuite", "QuickBooks", "Xero"] },
+  { title: "Carriers", items: ["UPS", "FedEx", "USPS", "DHL"] },
 ];
 
 const AUDIENCES = [
-  { title: "Ecommerce brands", copy: "Direct-to-consumer businesses scaling order volume." },
-  { title: "B2B companies", copy: "Wholesalers, distributors, and dealer networks." },
-  { title: "Marketplace sellers", copy: "Amazon, Walmart, eBay, and TikTok sellers." },
-  { title: "Retail brands", copy: "Store replenishment and retail distribution." },
-  { title: "Manufacturers", copy: "Finished-goods storage and distribution." },
-  { title: "Enterprise businesses", copy: "Complex multi-channel and multi-location fulfillment." },
+  { title: "Ecommerce brands", copy: "DTC volume that outgrew in-house packing." },
+  { title: "B2B companies", copy: "Wholesale, dealers, and pallet orders." },
+  { title: "Marketplace sellers", copy: "Amazon, Walmart, eBay, TikTok." },
+  { title: "Retail brands", copy: "Store replenishment and retail DCs." },
+  { title: "Manufacturers", copy: "Finished-goods storage and outbound." },
+  { title: "Multi-channel ops", copy: "Several channels, one inventory truth." },
 ];
 
 const INDUSTRIES = [
   "Apparel",
-  "Beauty & Cosmetics",
-  "Consumer Electronics",
-  "Auto Parts",
-  "Health & Wellness",
-  "Home & Garden",
+  "Beauty",
+  "Electronics",
+  "Auto parts",
+  "Health",
+  "Home",
   "Jewelry",
   "Toys",
-  "Sporting Goods",
-  "Pet Products",
-  "Medical Equipment",
+  "Sporting goods",
+  "Pet",
+  "Medical",
   "CPG",
 ];
 
 const WHY = [
-  { title: "One connected platform", copy: "Inventory, orders, warehouse operations, and fulfillment work together." },
-  { title: "B2B + B2C", copy: "Support wholesale, retail, ecommerce, and marketplace fulfillment." },
-  { title: "Multi-channel operations", copy: "Manage multiple commerce channels from one fulfillment environment." },
-  { title: "Advanced inventory tracking", copy: "SKU, lot, serial, batch, and expiration tracking." },
-  { title: "Flexible fulfillment services", copy: "Warehousing, kitting, marketplace prep, returns, and distribution." },
-  { title: "Data visibility", copy: "Track warehouse and fulfillment performance in real time." },
+  { title: "One connected stack", copy: "Listings, inventory, WMS, shipping, and returns on OneChannelAdmin." },
+  { title: "B2B + B2C + retail", copy: "Wholesale, DTC, marketplace, and store replenishment share stock." },
+  { title: "Multi-warehouse view", copy: "Alerts, kits, and forecasting across sites." },
+  { title: "Carrier rate shopping", copy: "Parcel, LTL, and FTL compared per order." },
+  { title: "WMS-grade floor", copy: "ASN, directed pick, scan-to-pack, RFID, cycle counts." },
+  { title: "Returns that recover stock", copy: "RMA back into available-to-sell inventory." },
 ];
 
 const COMPARISON = [
-  ["Inventory management", "Yes", "Varies"],
-  ["B2B fulfillment", "Yes", "Varies"],
-  ["B2C fulfillment", "Yes", "Varies"],
-  ["Marketplace fulfillment", "Yes", "Varies"],
-  ["Returns", "Yes", "Varies"],
-  ["Kitting", "Yes", "Varies"],
-  ["Technology platform", "Integrated", "Varies"],
-  ["Multi-channel", "Yes", "Varies"],
+  ["Inventory management", "Connected, real-time", "Often siloed"],
+  ["B2B + B2C + marketplaces", "One operation", "Usually split"],
+  ["WMS + shipping + RMA", "Built in", "Add-on or missing"],
+  ["Rate shopping", "Parcel, LTL, FTL", "Limited"],
+  ["Client / 3PL visibility", "Portals & SLAs", "Varies"],
+  ["Technology", "OneChannelAdmin", "Disconnected tools"],
 ];
 
 const ONBOARDING = [
-  { title: "Fulfillment assessment", copy: "We review order volume, SKUs, storage, channels, shipping, and returns." },
-  { title: "Integration", copy: "Connect ecommerce, marketplace, or ERP systems." },
-  { title: "Send inventory", copy: "Coordinate receiving and warehouse intake." },
-  { title: "Test orders", copy: "Verify inventory and order workflows." },
-  { title: "Go live", copy: "Begin processing production orders." },
+  { title: "Assess", copy: "Volume, SKUs, channels, shipping, returns." },
+  { title: "Connect", copy: "Store, marketplace, or ERP." },
+  { title: "Inbound", copy: "Receive and put away inventory." },
+  { title: "Test", copy: "Run sample orders end to end." },
+  { title: "Go live", copy: "Production fulfillment starts." },
 ];
 
 const PRICING_FACTORS = [
   "Monthly order volume",
-  "Number of SKUs",
-  "Product dimensions and weight",
-  "Storage requirements",
-  "Average items per order",
+  "SKU count",
+  "Dimensions and weight",
+  "Storage needs",
+  "Lines per order",
   "Packaging",
-  "Shipping destinations",
+  "Destinations",
   "Returns volume",
-  "Kitting requirements",
+  "Kitting",
 ];
 
 const COST_CATEGORIES = [
@@ -121,11 +120,12 @@ const COST_CATEGORIES = [
   "Shipping",
   "Kitting",
   "Returns",
-  "Special projects",
+  "Projects",
 ];
 
 const ServiceLandingPage = ({ page }: { page: ServiceLanding }) => {
   const related = relatedServices(page);
+  const [heroVisual, processVisual, floorVisual] = visualsForService(page.slug);
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -137,386 +137,317 @@ const ServiceLandingPage = ({ page }: { page: ServiceLanding }) => {
   };
 
   return (
-    <div className="ofc-tw min-h-screen bg-[#070b12] text-white">
+    <div className="ofc-tw spatial-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <OfcTwHeader activeHref={servicePath(page.slug)} />
 
+      <div className="spatial-crumb">
+        <div className="spatial-wrap">
+          <Link href="/">Home</Link>
+          <span aria-hidden="true">/</span>
+          <span>Services</span>
+          <span aria-hidden="true">/</span>
+          <strong>{page.name}</strong>
+        </div>
+      </div>
+
+      <SpatialNav />
+
       <main>
-        <section className="border-b border-white/10">
-          <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-white/55">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span className="px-2">→</span>
-            <span>Fulfillment Services</span>
-            <span className="px-2">→</span>
-            <span className="text-white">{page.name}</span>
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden border-b border-white/10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(255,106,61,0.16),transparent_55%),radial-gradient(ellipse_at_15%_80%,rgba(47,211,200,0.1),transparent_45%)]" />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
-            <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-[#2fd3c8]">
-                {page.primaryKeyword}
-              </p>
-              <h1 className="max-w-[16ch] text-4xl font-extrabold tracking-[-0.05em] md:text-6xl">
-                {page.h1}
-              </h1>
-              <p className="mt-6 max-w-xl text-base leading-7 text-[#9aa6b8] md:text-lg">
-                {page.heroCopy}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="#quote" className="rounded-full bg-[#2fd3c8] px-6 py-3 text-sm font-bold text-[#04201e]">
-                  Get a Fulfillment Quote
-                </Link>
-                <Link href={`mailto:${company.investorEmail}`} className="rounded-full border border-white/20 px-6 py-3 text-sm font-bold">
-                  Talk to a Fulfillment Specialist
-                </Link>
+        <section id="overview" className="spatial-hero">
+          <div className="spatial-hero__glow" aria-hidden="true" />
+          <div className="spatial-wrap spatial-hero__grid">
+            <div className="spatial-hero__copy">
+              <p className="spatial-kicker">{page.primaryKeyword}</p>
+              <h1>{page.h1}</h1>
+              <p className="spatial-lede">{page.heroCopy}</p>
+              <div className="spatial-cta-row">
+                <a className="spatial-btn spatial-btn--teal" href={`mailto:${company.investorEmail}`}>
+                  Talk to a specialist
+                </a>
               </div>
+              <ul className="spatial-trust">
+                {TRUST.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
-              <p className="text-sm font-bold text-[#2fd3c8]">{page.definition.question}</p>
-              <p className="mt-3 text-sm leading-7 text-white/80">{page.definition.answer}</p>
+            <div className="spatial-hero__stage">
+              <SpatialPhoto
+                visual={heroVisual}
+                className="spatial-photo--hero"
+                priority
+                sizes="(min-width: 1100px) 520px, 100vw"
+              />
+              <aside className="spatial-definition">
+                <p className="spatial-kicker">In one sentence</p>
+                <h2>{page.definition.question}</h2>
+                <p>{page.definition.answer}</p>
+              </aside>
             </div>
           </div>
         </section>
 
-        <section className="border-b border-white/10 bg-[#0b1220]">
-          <div className="mx-auto flex max-w-6xl flex-wrap gap-3 px-6 py-6">
-            {TRUST.map((item) => (
-              <span key={item} className="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold text-white/80">
-                {item}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">{page.problemsTitle}</h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
-              {page.problems.map((group) => (
-                <div key={group.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-                  <h3 className="mb-4 text-lg font-bold">{group.title}</h3>
-                  <ul className="space-y-2 text-sm text-[#9aa6b8]">
-                    {group.items.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[#ff6a3d]" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <p className="mt-8 max-w-3xl text-sm leading-7 text-white/70">
-              OneFulfillCenter brings warehousing, inventory, fulfillment, shipping, and returns together into one operation.
-            </p>
-            <Link href="#how-it-works" className="mt-6 inline-flex text-sm font-bold text-[#2fd3c8]">
-              See How 1FC Can Help
-            </Link>
-          </div>
-        </section>
-
-        <section id="how-it-works" className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">{page.processTitle}</h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {page.process.map((step, index) => (
-                <div key={step.title} className="rounded-2xl border border-white/10 p-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#ff6a3d]">
-                    {index + 1}
+        <div className="spatial-shell">
+          <div className="spatial-wrap spatial-shell__grid">
+            <article className="spatial-main">
+              <section className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>{page.problemsTitle}</h2>
+                  <p>
+                    These issues usually show up together. OneFulfillCenter treats warehousing,
+                    inventory, fulfillment, shipping, and returns as one space—not five vendors.
                   </p>
-                  <h3 className="mt-3 text-lg font-bold">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{step.copy}</p>
+                </header>
+                <div className="spatial-problem-grid">
+                  {page.problems.map((group) => (
+                    <div key={group.title} className="spatial-problem">
+                      <h3>{group.title}</h3>
+                      <ul>
+                        {group.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <Link href="#quote" className="mt-8 inline-flex rounded-full bg-[#ff6a3d] px-6 py-3 text-sm font-bold">
-              Start Fulfillment With 1FC
-            </Link>
-          </div>
-        </section>
+              </section>
 
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">{page.featuresTitle}</h2>
-            <div className="mt-10 grid gap-6 lg:grid-cols-2">
-              {page.features.map((feature) => (
-                <div key={feature.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-                  <div className="mb-3 flex items-center gap-2 text-[#2fd3c8]">
-                    <Boxes size={18} />
-                    <h3 className="text-lg font-bold text-white">{feature.title}</h3>
-                  </div>
-                  <p className="text-sm leading-6 text-[#9aa6b8]">{feature.copy}</p>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {feature.items.map((item) => (
-                      <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/75">
-                        {item}
+              <section id="process" className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>{page.processTitle}</h2>
+                  <p>{page.howItWorksAnswer}</p>
+                </header>
+                <div className="spatial-process">
+                  <ol className="spatial-spine">
+                    {page.process.map((step, index) => (
+                      <li key={step.title}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <div>
+                          <h3>{step.title}</h3>
+                          <p>{step.copy}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                  <SpatialPhoto
+                    visual={processVisual}
+                    className="spatial-photo--process"
+                    sizes="(min-width: 900px) 380px, 100vw"
+                  />
+                </div>
+                <a className="spatial-text-link" href={`mailto:${company.investorEmail}`}>
+                  Start fulfillment with 1FC <ArrowRight size={16} />
+                </a>
+              </section>
+
+              <section id="capabilities" className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>{page.featuresTitle}</h2>
+                </header>
+                <div className="spatial-bento">
+                  {page.features.map((feature) => (
+                    <article key={feature.title}>
+                      <div className="spatial-bento__icon">
+                        <Boxes size={18} />
+                      </div>
+                      <h3>{feature.title}</h3>
+                      <p>{feature.copy}</p>
+                      <ul>
+                        {feature.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
+              <SpatialPhoto
+                visual={floorVisual}
+                className="spatial-photo--wide"
+                sizes="(min-width: 1160px) 1160px, 100vw"
+              />
+
+              <section className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>What your operation gains</h2>
+                </header>
+                <ul className="spatial-gain">
+                  {BENEFITS.map((item) => (
+                    <li key={item.title}>
+                      <Check size={16} />
+                      <div>
+                        <strong>{item.title}</strong>
+                        <span>{item.copy}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section id="platform" className="spatial-block">
+                <header className="spatial-block__head">
+                  <p className="spatial-kicker">
+                    <Cpu size={14} /> OneChannelAdmin
+                  </p>
+                  <h2>Fulfillment on a connected commerce platform</h2>
+                  <p>
+                    Listings, inventory, warehouse work, shipping, and returns share the same
+                    system OneFulfillCenter runs in the building.
+                  </p>
+                </header>
+                <div className="spatial-tech">
+                  {TECH.map((item) => (
+                    <article key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.copy}</p>
+                    </article>
+                  ))}
+                </div>
+                <div className="spatial-integrations">
+                  <p className="spatial-kicker">
+                    <Plug size={14} /> Connect what you already sell on
+                  </p>
+                  {INTEGRATIONS.map((group) => (
+                    <div key={group.title}>
+                      <h3>{group.title}</h3>
+                      <p>{group.items.join(" · ")}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>Built for growing commerce teams</h2>
+                  <p>{page.whoNeedsAnswer}</p>
+                </header>
+                <div className="spatial-audience">
+                  {AUDIENCES.map((item) => (
+                    <article key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.copy}</p>
+                    </article>
+                  ))}
+                </div>
+                <ul className="spatial-chips">
+                  {INDUSTRIES.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+
+              <section className="spatial-block">
+                <header className="spatial-block__head">
+                  <p className="spatial-kicker">
+                    <ShieldCheck size={14} /> Why 1FC
+                  </p>
+                  <h2>A fulfillment floor, not a disconnected warehouse</h2>
+                </header>
+                <div className="spatial-split">
+                  <ul className="spatial-why">
+                    {WHY.map((item) => (
+                      <li key={item.title}>
+                        <strong>{item.title}</strong>
+                        <span>{item.copy}</span>
                       </li>
                     ))}
                   </ul>
+                  <div className="spatial-table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Capability</th>
+                          <th>OneFulfillCenter</th>
+                          <th>Typical warehouse</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {COMPARISON.map((row) => (
+                          <tr key={row[0]}>
+                            <th>{row[0]}</th>
+                            <td>{row[1]}</td>
+                            <td>{row[2]}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              </section>
 
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              What Your Business Gains With OneFulfillCenter
-            </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {BENEFITS.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 p-6">
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{item.copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              <section className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>Onboard without stopping sales</h2>
+                </header>
+                <ol className="spatial-flow">
+                  {ONBOARDING.map((step, index) => (
+                    <li key={step.title}>
+                      <span>{index + 1}</span>
+                      <h3>{step.title}</h3>
+                      <p>{step.copy}</p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
 
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-8 flex items-center gap-3">
-              <Cpu className="text-[#ff6a3d]" />
-              <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-                Fulfillment Powered by OneChannelAdmin Technology
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {TECH.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 p-6">
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{item.copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-8 flex items-center gap-3">
-              <Plug className="text-[#2fd3c8]" />
-              <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-                Connect Your Existing Sales Channels
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              {INTEGRATIONS.map((group) => (
-                <div key={group.title} className="rounded-2xl border border-white/10 p-6">
-                  <h3 className="mb-3 text-lg font-bold">{group.title}</h3>
-                  <ul className="space-y-2 text-sm text-[#9aa6b8]">
-                    {group.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Fulfillment Built for Growing Businesses
-            </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {AUDIENCES.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 p-6">
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{item.copy}</p>
-                </div>
-              ))}
-            </div>
-            <h3 className="mt-12 text-2xl font-bold">Fulfillment Expertise Across Industries</h3>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {INDUSTRIES.map((item) => (
-                <span key={item} className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/80">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-8 flex items-center gap-3">
-              <ShieldCheck className="text-[#2fd3c8]" />
-              <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-                Why Businesses Choose OneFulfillCenter
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {WHY.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 p-6">
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{item.copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Looking for an Alternative Fulfillment Provider?
-            </h2>
-            <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-white/5">
-                  <tr>
-                    <th className="px-4 py-3 font-bold">Capability</th>
-                    <th className="px-4 py-3 font-bold">OneFulfillCenter</th>
-                    <th className="px-4 py-3 font-bold">Traditional warehouse</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {COMPARISON.map((row) => (
-                    <tr key={row[0]} className="border-t border-white/10">
-                      {row.map((cell) => (
-                        <td key={cell} className="px-4 py-3 text-white/80">{cell}</td>
+              <section id="pricing" className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>Pricing around your operation</h2>
+                  <p>{page.costAnswer}</p>
+                </header>
+                <div className="spatial-price">
+                  <div>
+                    <h3>What we quote against</h3>
+                    <ul>
+                      {PRICING_FACTORS.map((item) => (
+                        <li key={item}>{item}</li>
                       ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Get Started Without Disrupting Your Business
-            </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-              {ONBOARDING.map((step, index) => (
-                <div key={step.title} className="rounded-2xl border border-white/10 p-5">
-                  <p className="text-xs font-bold text-[#ff6a3d]">Step {index + 1}</p>
-                  <h3 className="mt-2 font-bold">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9aa6b8]">{step.copy}</p>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Cost categories</h3>
+                    <ul>
+                      {COST_CATEGORIES.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <Link href="#quote" className="mt-8 inline-flex rounded-full bg-[#2fd3c8] px-6 py-3 text-sm font-bold text-[#04201e]">
-              Start Your Fulfillment Assessment
-            </Link>
-          </div>
-        </section>
+              </section>
 
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Fulfillment Pricing Built Around Your Operation
-            </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-[#9aa6b8]">
-              {page.costAnswer}
-            </p>
-            <div className="mt-8 grid gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-3 font-bold">Pricing depends on</h3>
-                <ul className="space-y-2 text-sm text-[#9aa6b8]">
-                  {PRICING_FACTORS.map((item) => (
-                    <li key={item}>{item}</li>
+              <section id="faq" className="spatial-block">
+                <header className="spatial-block__head">
+                  <h2>Questions teams ask first</h2>
+                </header>
+                <div className="spatial-faq">
+                  {page.faqs.map((item) => (
+                    <details key={item.q}>
+                      <summary>{item.q}</summary>
+                      <p>{item.a}</p>
+                    </details>
                   ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="mb-3 font-bold">Common cost categories</h3>
-                <ul className="space-y-2 text-sm text-[#9aa6b8]">
-                  {COST_CATEGORIES.map((item) => (
-                    <li key={item}>{item}</li>
+                </div>
+              </section>
+
+              <section className="spatial-block spatial-related">
+                <h2>Nearby services</h2>
+                <div>
+                  {related.map((item) => (
+                    <Link key={item.slug} href={servicePath(item.slug)}>
+                      {item.name}
+                      <ArrowRight size={14} />
+                    </Link>
                   ))}
-                </ul>
-              </div>
-            </div>
-            <Link href="#quote" className="mt-8 inline-flex rounded-full border border-white/20 px-6 py-3 text-sm font-bold">
-              Request Pricing
-            </Link>
+                </div>
+              </section>
+            </article>
           </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Built for Real Fulfillment Operations
-            </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-[#9aa6b8]">
-              Customer stories and verified operating metrics will be published here as they are available. We do not invent order counts, accuracy rates, or case studies.
-            </p>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 px-6 py-16 lg:py-24">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-              Frequently Asked Questions
-            </h2>
-            <div className="mt-8 space-y-4">
-              {page.faqs.map((item) => (
-                <details key={item.q} className="rounded-2xl border border-white/10 p-5">
-                  <summary className="cursor-pointer font-bold">{item.q}</summary>
-                  <p className="mt-3 text-sm leading-7 text-[#9aa6b8]">{item.a}</p>
-                </details>
-              ))}
-            </div>
-            <div className="mt-10 grid gap-4 rounded-2xl border border-white/10 p-6 text-sm leading-7 text-white/80">
-              <p><strong className="text-white">{page.definition.question}</strong> {page.definition.answer}</p>
-              <p><strong className="text-white">How does {page.name.toLowerCase()} work?</strong> {page.howItWorksAnswer}</p>
-              <p><strong className="text-white">Who needs {page.name.toLowerCase()}?</strong> {page.whoNeedsAnswer}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-[#0b1220] px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-bold">Related fulfillment services</h2>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {related.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={servicePath(item.slug)}
-                  className="rounded-full border border-white/15 px-4 py-2 text-sm text-white hover:border-[#2fd3c8] hover:text-[#2fd3c8]"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-6 py-16 lg:py-24">
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <Truck className="mb-4 text-[#ff6a3d]" />
-              <h2 className="text-3xl font-extrabold tracking-tight md:text-5xl">
-                Ready to Simplify Your Fulfillment Operation?
-              </h2>
-              <p className="mt-5 max-w-xl text-sm leading-7 text-[#9aa6b8]">
-                Tell us about your products, order volume, sales channels, and shipping requirements. Our fulfillment team can help build an operation around your business.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="#quote" className="rounded-full bg-[#2fd3c8] px-6 py-3 text-sm font-bold text-[#04201e]">
-                  Get My Fulfillment Quote
-                </Link>
-                <Link href={`mailto:${company.investorEmail}`} className="rounded-full border border-white/20 px-6 py-3 text-sm font-bold">
-                  Talk to a Fulfillment Specialist
-                </Link>
-              </div>
-            </div>
-            <QuoteForm defaultService={page.name} />
-          </div>
-        </section>
+        </div>
       </main>
     </div>
   );
