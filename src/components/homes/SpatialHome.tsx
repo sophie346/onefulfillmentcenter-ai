@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import OfcTwHeader from "@/components/solutions/OfcTwHeader";
 import HomeProcess from "@/components/homes/HomeProcess";
+import HomeServices from "@/components/homes/HomeServices";
 import HomeNewsletter from "@/components/homes/HomeNewsletter";
 import { company, socialLinks } from "@/data/brandArchitecture";
 import { SERVICE_NAV } from "@/data/ofcNav";
@@ -200,6 +201,7 @@ const SpatialHome = () => {
 
         <div className="spatial-wrap home-stack">
           <HomeProcess />
+          <HomeServices />
 
           <section className="spatial-block" id="how-it-works">
             <div className="home-how">
