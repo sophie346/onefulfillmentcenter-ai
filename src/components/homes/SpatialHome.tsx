@@ -1,26 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Boxes,
-  Car,
-  Flower2,
-  Globe2,
-  Hammer,
-  HeartPulse,
-  Layers3,
-  Mountain,
-  Package,
-  PackageCheck,
-  RotateCcw,
-  Send,
-  Shirt,
-  Ship,
-  ShoppingBag,
-  Sparkles,
-  Store,
-  Truck,
-  Warehouse,
-} from "lucide-react";
+import { Send } from "lucide-react";
 import OfcTwHeader from "@/components/solutions/OfcTwHeader";
 import HomeProcess from "@/components/homes/HomeProcess";
 import HomeHowItWorks from "@/components/homes/HomeHowItWorks";
@@ -31,16 +11,46 @@ import { company, socialLinks } from "@/data/brandArchitecture";
 import { SERVICE_NAV } from "@/data/ofcNav";
 
 const BENEFITS = [
-  { title: "Multiple warehouses", icon: Warehouse, color: "#0f766e" },
-  { title: "Best shipping prices", icon: Ship, color: "#e85d04" },
-  { title: "Unlimited products", icon: Boxes, color: "#0369a1" },
-  { title: "Robust fulfillment software", icon: Layers3, color: "#7c3aed" },
-  { title: "Inventory management", icon: PackageCheck, color: "#15803d" },
-  { title: "Grow your business globally", icon: Globe2, color: "#b45309" },
-  { title: "Order processing", icon: ShoppingBag, color: "#be185d" },
-  { title: "Wholesale fulfillment", icon: Store, color: "#0e7490" },
-  { title: "Returns processing", icon: RotateCcw, color: "#b91c1c" },
-  { title: "Carrier-ready logistics", icon: Truck, color: "#4338ca" },
+  {
+    title: "Multiple warehouses",
+    src: "/assets/img/home/benefits/multiple-warehouses.png",
+  },
+  {
+    title: "Best Shipping Prices",
+    src: "/assets/img/home/benefits/shipping-prices.png",
+  },
+  {
+    title: "Unlimited Products",
+    src: "/assets/img/home/benefits/unlimited-products.png",
+  },
+  {
+    title: "Robust Fulfillment Software",
+    src: "/assets/img/home/benefits/fulfillment-software.png",
+  },
+  {
+    title: "Inventory Management",
+    src: "/assets/img/home/benefits/inventory-management.png",
+  },
+  {
+    title: "Grow your business globally",
+    src: "/assets/img/home/benefits/grow-globally.png",
+  },
+  {
+    title: "Order Processing",
+    src: "/assets/img/home/benefits/order-processing.png",
+  },
+  {
+    title: "Wholesale fulfillment",
+    src: "/assets/img/home/benefits/wholesale-fulfillment.png",
+  },
+  {
+    title: "Returns Processing",
+    src: "/assets/img/home/benefits/returns-processing.png",
+  },
+  {
+    title: "Multiple warehouses",
+    src: "/assets/img/home/benefits/multiple-warehouses.png",
+  },
 ] as const;
 
 const LOGOS = [
@@ -57,50 +67,42 @@ const INDUSTRIES = [
   {
     title: "Apparel",
     copy: "Designate product variations like color or size and fulfill fashion orders with speed and accuracy.",
-    icon: Shirt,
-    color: "#be185d",
+    src: "/assets/img/home/industries/apparel-building.png",
   },
   {
     title: "Arts & Crafts Supply",
     copy: "Handle diverse craft inventory—from beads to kits—with organized storage and flexible shipping.",
-    icon: Sparkles,
-    color: "#7c3aed",
+    src: "/assets/img/home/industries/icon-arts.png",
   },
   {
-    title: "Auto Spare Parts",
+    title: "Auto Spare Parts & Car Accessories",
     copy: "Support growing demand for eCommerce car parts with reliable SKU tracking and wholesale fulfillment.",
-    icon: Car,
-    color: "#0369a1",
+    src: "/assets/img/home/industries/icon-auto.png",
   },
   {
-    title: "Beauty & Cosmetics",
+    title: "Beauty, Cosmetics & Face Creams",
     copy: "Scale beauty supply fulfillment as social-driven demand grows, with careful packaging and returns support.",
-    icon: Flower2,
-    color: "#db2777",
+    src: "/assets/img/home/industries/icon-beauty.png",
   },
   {
     title: "Building Supplies",
     copy: "Ship interior and exterior project materials with warehouse capacity built for bulkier goods.",
-    icon: Hammer,
-    color: "#b45309",
+    src: "/assets/img/home/industries/icon-building.png",
   },
   {
-    title: "Camping & Outdoor",
+    title: "Camping Outdoor & Hunting Equipment",
     copy: "Keep outdoor and hunting equipment moving through peak seasons with multi-warehouse coverage.",
-    icon: Mountain,
-    color: "#15803d",
+    src: "/assets/img/home/industries/icon-camping.png",
   },
   {
     title: "Consumer Goods",
     copy: "Stay ahead of short shelf-life inventory with real-time stock visibility and fast order turnaround.",
-    icon: Package,
-    color: "#0f766e",
+    src: "/assets/img/home/industries/icon-consumer.png",
   },
   {
-    title: "Dental & Medical",
+    title: "Dental Equipment & Medical Supplies",
     copy: "Fulfill specialized equipment and supplies where availability and delivery timing matter most.",
-    icon: HeartPulse,
-    color: "#b91c1c",
+    src: "/assets/img/home/industries/icon-dental.png",
   },
 ] as const;
 
@@ -210,7 +212,7 @@ const SpatialHome = () => {
           </section>
 
           <section className="spatial-block" id="benefits">
-            <header className="spatial-block__head">
+            <header className="spatial-block__head home-benefits__head">
               <h2>Benefits</h2>
               <p>
                 Your one-stop fulfillment hub for seamless success, handling both B2B and B2C
@@ -218,15 +220,20 @@ const SpatialHome = () => {
               </p>
             </header>
             <div className="home-benefits">
-              {BENEFITS.map((benefit) => {
-                const Icon = benefit.icon;
-                return (
-                  <article key={benefit.title}>
-                    <Icon size={20} style={{ color: benefit.color }} aria-hidden="true" />
-                    <h3>{benefit.title}</h3>
-                  </article>
-                );
-              })}
+              {BENEFITS.map((benefit, index) => (
+                <article key={`${benefit.title}-${index}`}>
+                  <span className="home-benefits__icon">
+                    <Image
+                      src={benefit.src}
+                      alt=""
+                      width={97}
+                      height={96}
+                      sizes="72px"
+                    />
+                  </span>
+                  <h3>{benefit.title}</h3>
+                </article>
+              ))}
             </div>
           </section>
 
@@ -258,23 +265,25 @@ const SpatialHome = () => {
             </div>
           </section>
 
-          <section className="spatial-block" id="integrations">
-            <header className="spatial-block__head">
-              <p className="spatial-kicker">Connections</p>
-              <h2>
-                Connect to your <em>favourite apps</em>
-              </h2>
-              <p>
-                Plug Onefulfillcenter into the sales channels, carriers, and tools your team
-                already runs.
-              </p>
-            </header>
-            <div className="home-logos">
-              {LOGOS.map((logo) => (
-                <div key={logo.src}>
-                  <Image src={logo.src} alt={logo.alt} width={72} height={40} />
-                </div>
-              ))}
+          <section className="spatial-block home-integrations" id="integrations">
+            <div className="home-integrations__stage">
+              <div className="home-integrations__copy">
+                <p className="spatial-kicker">Connections</p>
+                <h2>
+                  Connect to your <em>favourite apps</em>
+                </h2>
+                <p className="spatial-lede">
+                  Plug Onefulfillcenter into the sales channels, carriers, and tools your team
+                  already runs.
+                </p>
+              </div>
+              <div className="home-integrations__logos" aria-label="Integration partners">
+                {LOGOS.map((logo) => (
+                  <div className="home-integrations__logo" key={logo.src}>
+                    <Image src={logo.src} alt={logo.alt} width={88} height={48} />
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </div>
@@ -283,28 +292,31 @@ const SpatialHome = () => {
 
         <div className="spatial-wrap home-stack">
           <section className="spatial-block" id="industries">
-            <header className="spatial-block__head">
+            <header className="spatial-block__head home-industries__head">
               <h2>Industries</h2>
               <p>
-                Companies across many industries use the Onefulfillcenter growth platform to
-                reach their eCommerce goals.
+                Companies from many diverse industries use the ONEFULFILLCENTER growth platform to
+                achieve their desired eCommerce goals.
               </p>
             </header>
             <div className="home-industries">
-              {INDUSTRIES.map((industry) => {
-                const Icon = industry.icon;
-                return (
-                  <article key={industry.title}>
-                    <div style={{ background: `${industry.color}14`, color: industry.color }}>
-                      <Icon size={20} aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3>{industry.title}</h3>
-                      <p>{industry.copy}</p>
-                    </div>
-                  </article>
-                );
-              })}
+              {INDUSTRIES.map((industry) => (
+                <article key={industry.title}>
+                  <span className="home-industries__icon">
+                    <Image
+                      src={industry.src}
+                      alt=""
+                      width={84}
+                      height={84}
+                      sizes="72px"
+                    />
+                  </span>
+                  <div>
+                    <h3>{industry.title}</h3>
+                    <p>{industry.copy}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </section>
 

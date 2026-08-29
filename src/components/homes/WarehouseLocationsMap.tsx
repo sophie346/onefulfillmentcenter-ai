@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -9,7 +9,6 @@ import {
   Compass,
   Globe,
   MapPin,
-  Navigation,
   Truck,
   X,
 } from "lucide-react";
@@ -44,69 +43,55 @@ const LOGISTICS_CORRIDORS: [string, string][] = [
   ["mem-01", "chi-01"],
 ];
 
+/** Keep SSR/client pin math identical across Node vs browser float drift. */
+function roundMapValue(value: number, digits = 4): number {
+  const factor = 10 ** digits;
+  return Math.round(value * factor) / factor;
+}
+
+/** Percent strings browsers won't re-serialize differently during hydration. */
+function mapPercent(value: number): string {
+  return `${roundMapValue(value).toFixed(4)}%`;
+}
+
+type HubPosition = {
+  x: number;
+  y: number;
+  xPct: number;
+  yPct: number;
+};
+
+function getStableHubPosition(lng: number, lat: number): HubPosition | null {
+  const pos = projectCoords(lng, lat);
+  if (!pos) return null;
+  return {
+    x: roundMapValue(pos.x),
+    y: roundMapValue(pos.y),
+    xPct: roundMapValue(pos.xPct),
+    yPct: roundMapValue(pos.yPct),
+  };
+}
+
 const WarehouseLocationsMap = () => {
   const [selectedHub, setSelectedHub] = useState<WarehouseHub | null>(null);
   const [hoveredHub, setHoveredHub] = useState<WarehouseHub | null>(null);
   const [hoveredState, setHoveredState] = useState<string | null>(null);
-  const [simulatedState, setSimulatedState] = useState("Texas");
+  // Absolute HTML overlays use runtime % styles that CSSOM can re-serialize;
+  // mount them after hydration to avoid React mismatch warnings.
+  const [overlaysReady, setOverlaysReady] = useState(false);
+
+  useEffect(() => {
+    setOverlaysReady(true);
+  }, []);
 
   const hubPositions = useMemo(() => {
-    const map = new Map<string, { x: number; y: number; xPct: number; yPct: number }>();
+    const map = new Map<string, HubPosition>();
     WAREHOUSE_HUBS.forEach((hub) => {
-      const pos = projectCoords(hub.lng, hub.lat);
+      const pos = getStableHubPosition(hub.lng, hub.lat);
       if (pos) map.set(hub.id, pos);
     });
     return map;
   }, []);
-
-  const nearestHubForSimulation = useMemo(() => {
-    const lower = simulatedState.toLowerCase();
-    if (
-      lower.includes("cal") ||
-      lower.includes("ca") ||
-      lower.includes("nv") ||
-      lower.includes("az")
-    ) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "LAX-01") || WAREHOUSE_HUBS[3];
-    }
-    if (
-      lower.includes("tex") ||
-      lower.includes("tx") ||
-      lower.includes("ok") ||
-      lower.includes("la")
-    ) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "DFW-01") || WAREHOUSE_HUBS[10];
-    }
-    if (
-      lower.includes("ill") ||
-      lower.includes("il") ||
-      lower.includes("wi") ||
-      lower.includes("in") ||
-      lower.includes("mi")
-    ) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "CHI-01") || WAREHOUSE_HUBS[18];
-    }
-    if (
-      lower.includes("ny") ||
-      lower.includes("nj") ||
-      lower.includes("pa") ||
-      lower.includes("ma")
-    ) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "EWR-01") || WAREHOUSE_HUBS[28];
-    }
-    if (
-      lower.includes("fl") ||
-      lower.includes("ga") ||
-      lower.includes("nc") ||
-      lower.includes("sc")
-    ) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "ATL-01") || WAREHOUSE_HUBS[21];
-    }
-    if (lower.includes("wa") || lower.includes("or")) {
-      return WAREHOUSE_HUBS.find((h) => h.code === "SEA-01") || WAREHOUSE_HUBS[0];
-    }
-    return WAREHOUSE_HUBS.find((h) => h.code === "DFW-01") || WAREHOUSE_HUBS[10];
-  }, [simulatedState]);
 
   return (
     <section
@@ -122,7 +107,7 @@ const WarehouseLocationsMap = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#f26522] uppercase"
+            className="mb-4 inline-flex items-center gap-2 rounded-md border border-orange-500/20 bg-orange-500/10 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#f26522] uppercase"
           >
             <Compass className="h-3.5 w-3.5" />
             Nationwide Logistics Network
@@ -150,7 +135,7 @@ const WarehouseLocationsMap = () => {
           </motion.p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[28px] border border-slate-800/90 bg-[#101520] p-3 shadow-2xl sm:p-6">
+        <div className="relative overflow-hidden rounded-lg border border-slate-800/90 bg-[#101520] p-3 shadow-2xl sm:p-6">
           <div className="pointer-events-none absolute inset-0 opacity-20">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -168,7 +153,7 @@ const WarehouseLocationsMap = () => {
             </svg>
           </div>
 
-          <div className="absolute top-4 left-6 z-20 hidden items-center gap-2 rounded-full border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs text-slate-400 backdrop-blur-md sm:flex">
+          <div className="absolute top-4 left-6 z-20 hidden items-center gap-2 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs text-slate-400 backdrop-blur-md sm:flex">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#f26522]" />
             <span>
               Click on any <strong className="font-semibold text-slate-200">Drop Pin</strong> to
@@ -176,7 +161,7 @@ const WarehouseLocationsMap = () => {
             </span>
           </div>
 
-          <div className="absolute top-4 right-6 z-20 flex items-center gap-3 rounded-full border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs backdrop-blur-md">
+          <div className="absolute top-4 right-6 z-20 flex items-center gap-3 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs backdrop-blur-md">
             {hoveredState ? (
               <div className="mr-1 flex items-center gap-1.5 border-r border-slate-700 pr-3 text-xs font-bold text-orange-400">
                 <Globe className="h-3.5 w-3.5" />
@@ -277,31 +262,30 @@ const WarehouseLocationsMap = () => {
             </svg>
 
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              {WAREHOUSE_HUBS.map((hub) => {
-                  const pos = hubPositions.get(hub.id);
-                  if (!pos) return null;
-                  const isHighlighted =
-                    selectedHub?.id === hub.id || hoveredHub?.id === hub.id;
-                  const opacity = isHighlighted ? 0.35 : 0.08;
-                  return (
-                    <div
-                      key={`coverage-${hub.id}`}
-                      className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300"
-                      style={{
-                        left: `${pos.xPct}%`,
-                        top: `${pos.yPct}%`,
-                        width: isHighlighted ? "240px" : "140px",
-                        height: isHighlighted ? "240px" : "140px",
-                        background: `radial-gradient(circle, rgba(242, 101, 34, ${opacity}) 0%, rgba(242, 101, 34, 0.02) 70%, transparent 100%)`,
-                        border: `1px solid rgba(242, 101, 34, ${isHighlighted ? "0.6" : "0.15"})`,
-                      }}
-                    />
-                  );
-                })}
+              {overlaysReady
+                ? WAREHOUSE_HUBS.map((hub) => {
+                    const pos = hubPositions.get(hub.id);
+                    if (!pos) return null;
+                    const isHighlighted =
+                      selectedHub?.id === hub.id || hoveredHub?.id === hub.id;
+                    return (
+                      <div
+                        key={`coverage-${hub.id}`}
+                        className={`pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-solid transition-all duration-300 ${
+                          isHighlighted
+                            ? "h-[240px] w-[240px] border-[rgba(242,101,34,0.6)] bg-[radial-gradient(circle,rgba(242,101,34,0.35)_0%,rgba(242,101,34,0.02)_70%,transparent_100%)]"
+                            : "h-[140px] w-[140px] border-[rgba(242,101,34,0.15)] bg-[radial-gradient(circle,rgba(242,101,34,0.08)_0%,rgba(242,101,34,0.02)_70%,transparent_100%)]"
+                        }`}
+                        style={{ left: mapPercent(pos.xPct), top: mapPercent(pos.yPct) }}
+                      />
+                    );
+                  })
+                : null}
             </div>
 
             <div className="pointer-events-none absolute inset-0">
-              {WAREHOUSE_HUBS.map((hub) => {
+              {overlaysReady
+                ? WAREHOUSE_HUBS.map((hub) => {
                 const pos = hubPositions.get(hub.id);
                 if (!pos) return null;
                 const isSelected = selectedHub?.id === hub.id;
@@ -319,7 +303,7 @@ const WarehouseLocationsMap = () => {
                   <div
                     key={hub.id}
                     className="group pointer-events-auto absolute z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                    style={{ left: `${pos.xPct}%`, top: `${pos.yPct}%` }}
+                    style={{ left: mapPercent(pos.xPct), top: mapPercent(pos.yPct) }}
                     onMouseEnter={() => setHoveredHub(hub)}
                     onMouseLeave={() => setHoveredHub(null)}
                     onClick={() => setSelectedHub(isSelected ? null : hub)}
@@ -374,7 +358,8 @@ const WarehouseLocationsMap = () => {
                     </div>
                   </div>
                 );
-              })}
+              })
+                : null}
             </div>
           </div>
         </div>
@@ -385,12 +370,12 @@ const WarehouseLocationsMap = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="relative mt-8 overflow-hidden rounded-3xl border border-orange-500/40 bg-gradient-to-br from-[#131924] via-[#111722] to-[#171d2b] p-6 shadow-2xl shadow-orange-950/30 sm:p-8"
+              className="relative mt-8 overflow-hidden rounded-xl border border-orange-500/40 bg-gradient-to-br from-[#131924] via-[#111722] to-[#171d2b] p-6 shadow-2xl shadow-orange-950/30 sm:p-8"
             >
               <button
                 type="button"
                 onClick={() => setSelectedHub(null)}
-                className="absolute top-6 right-6 cursor-pointer rounded-xl bg-slate-800/80 p-2 text-slate-400 transition-colors hover:bg-slate-700 hover:text-white"
+                className="absolute top-6 right-6 cursor-pointer rounded-md bg-slate-800/80 p-2 text-slate-400 transition-colors hover:bg-slate-700 hover:text-white"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -398,7 +383,7 @@ const WarehouseLocationsMap = () => {
               <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
                 <div className="space-y-4 lg:col-span-5">
                   <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-gradient-to-br from-[#f26522] to-orange-600 p-3 text-white shadow-lg shadow-orange-600/30">
+                    <div className="rounded-lg bg-gradient-to-br from-[#f26522] to-orange-600 p-3 text-white shadow-lg shadow-orange-600/30">
                       <MapPin className="h-7 w-7" />
                     </div>
                     <div>
@@ -419,23 +404,23 @@ const WarehouseLocationsMap = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-3.5">
+                    <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
                       <p className="text-[11px] font-medium text-slate-400">Facility Size</p>
                       <p className="mt-0.5 text-base font-bold text-white">{selectedHub.sqft}</p>
                     </div>
-                    <div className="rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-3.5">
+                    <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
                       <p className="text-[11px] font-medium text-slate-400">Daily Outbound Flow</p>
                       <p className="mt-0.5 text-base font-bold text-orange-400">
                         {selectedHub.dailyCapacity}
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-3.5">
+                    <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
                       <p className="text-[11px] font-medium text-slate-400">Same-Day Cut-off</p>
                       <p className="mt-0.5 text-base font-bold text-emerald-400">
                         {selectedHub.cutoffTime}
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-3.5">
+                    <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
                       <p className="text-[11px] font-medium text-slate-400">Automation Level</p>
                       <p className="mt-1 text-xs font-bold text-slate-200">
                         {selectedHub.automationLevel}
@@ -445,7 +430,7 @@ const WarehouseLocationsMap = () => {
                 </div>
 
                 <div className="space-y-4 lg:col-span-4">
-                  <div className="space-y-3 rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-4">
+                  <div className="space-y-3 rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-4">
                     <p className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#f26522] uppercase">
                       <Truck className="h-3.5 w-3.5" /> Ground Delivery Reach
                     </p>
@@ -469,7 +454,7 @@ const WarehouseLocationsMap = () => {
                       {selectedHub.carriers.map((carrier) => (
                         <span
                           key={carrier}
-                          className="rounded-xl border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-300"
+                          className="rounded-md border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-300"
                         >
                           {carrier}
                         </span>
@@ -479,7 +464,7 @@ const WarehouseLocationsMap = () => {
                 </div>
 
                 <div className="space-y-4 lg:col-span-3">
-                  <div className="space-y-2.5 rounded-2xl border border-slate-800 bg-[#0b0e14]/80 p-4">
+                  <div className="space-y-2.5 rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-4">
                     <p className="text-xs font-bold tracking-wider text-slate-400 uppercase">
                       Facility Capabilities:
                     </p>
@@ -493,7 +478,7 @@ const WarehouseLocationsMap = () => {
 
                   <Link
                     href="#newsletter"
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f26522] to-orange-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-orange-600/30 transition-all hover:from-orange-600 hover:to-orange-700 sm:text-sm"
+                    className="flex w-full items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#f26522] to-orange-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-orange-600/30 transition-all hover:from-orange-600 hover:to-orange-700 sm:text-sm"
                   >
                     <span>Store Inventory at {selectedHub.code}</span>
                     <ArrowUpRight className="h-4 w-4" />
@@ -503,49 +488,6 @@ const WarehouseLocationsMap = () => {
             </motion.div>
           ) : null}
         </AnimatePresence>
-
-        <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-2xl border border-slate-800/90 bg-[#131924]/60 p-6 sm:p-8 md:flex-row">
-          <div className="space-y-1 text-center md:text-left">
-            <h4 className="flex items-center justify-center gap-2 text-base font-bold text-white sm:text-lg md:justify-start">
-              <Navigation className="h-4 w-4 text-[#f26522]" />
-              Interactive Transit Speed Simulator
-            </h4>
-            <p className="text-xs text-slate-400">
-              Select your customer destination to see the optimal auto-assigned fulfillment center
-              &amp; ground delivery SLA.
-            </p>
-          </div>
-
-          <div className="flex w-full flex-col items-center gap-3 sm:flex-row md:w-auto">
-            <select
-              value={simulatedState}
-              onChange={(e) => setSimulatedState(e.target.value)}
-              className="w-full cursor-pointer rounded-xl border border-slate-700 bg-[#0b0e14] px-4 py-2.5 text-xs text-slate-200 focus:border-orange-500 focus:outline-none sm:w-48"
-            >
-              <option value="Texas">Texas (TX)</option>
-              <option value="California">California (CA)</option>
-              <option value="Illinois">Illinois (IL)</option>
-              <option value="New York">New York (NY)</option>
-              <option value="Florida">Florida (FL)</option>
-              <option value="Washington">Washington (WA)</option>
-              <option value="Georgia">Georgia (GA)</option>
-            </select>
-
-            <div className="flex shrink-0 items-center gap-3 rounded-xl border border-orange-500/30 bg-[#0a0d14] px-4 py-2.5 text-xs">
-              <div className="text-left">
-                <span className="block text-[10px] text-slate-400">Assigned Hub:</span>
-                <span className="font-bold text-[#f26522]">
-                  {nearestHubForSimulation?.code} ({nearestHubForSimulation?.city})
-                </span>
-              </div>
-              <div className="h-6 w-px bg-slate-800" />
-              <div className="text-left">
-                <span className="block text-[10px] text-slate-400">Ground Speed:</span>
-                <span className="font-bold text-emerald-400">1 - 2 Days Max</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

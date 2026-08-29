@@ -28,6 +28,11 @@ const projection = geoAlbersUsa()
 /**
  * Project WGS84 longitude/latitude into SVG coordinates for this map.
  */
+function roundCoord(value: number, digits = 4): number {
+  const factor = 10 ** digits;
+  return Math.round(value * factor) / factor;
+}
+
 export function projectCoords(
   lng: number,
   lat: number,
@@ -36,10 +41,13 @@ export function projectCoords(
   if (!projected) return null;
   const [x, y] = projected;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  // Fixed precision avoids Node vs browser float drift during hydration.
+  const rx = roundCoord(x);
+  const ry = roundCoord(y);
   return {
-    x,
-    y,
-    xPct: (x / MAP_WIDTH) * 100,
-    yPct: (y / MAP_HEIGHT) * 100,
+    x: rx,
+    y: ry,
+    xPct: roundCoord((rx / MAP_WIDTH) * 100),
+    yPct: roundCoord((ry / MAP_HEIGHT) * 100),
   };
 }
