@@ -28,6 +28,7 @@ import HomeProcess from "@/components/homes/HomeProcess";
 import HomeHowItWorks from "@/components/homes/HomeHowItWorks";
 import HomeServices from "@/components/homes/HomeServices";
 import HomeNewsletter from "@/components/homes/HomeNewsletter";
+import WarehouseLocationsMap from "@/components/homes/WarehouseLocationsMap";
 import { company, socialLinks } from "@/data/brandArchitecture";
 import { SERVICE_NAV } from "@/data/ofcNav";
 
@@ -300,46 +301,11 @@ const SpatialHome = () => {
               ))}
             </div>
           </section>
+        </div>
 
-          <section className="spatial-block" id="warehouse-locations">
-            <div className="home-locations">
-              <figure className="spatial-photo home-locations__photo">
-                <Image
-                  src="/assets/img/home/home-locations.jpg"
-                  alt="Operations map of United States warehouse coverage"
-                  fill
-                  sizes="(min-width: 900px) 720px, 100vw"
-                />
-                <figcaption>Coverage planned across the United States</figcaption>
-              </figure>
-              <div>
-                <p className="spatial-kicker">Network</p>
-                <h2>Warehouse Locations</h2>
-                <p className="spatial-lede">
-                  Distributed warehouse coverage across the United States for faster regional
-                  delivery, lower shipping friction, and scalable inventory placement.
-                </p>
-                <ul className="home-locations__points">
-                  <li>
-                    <strong>Faster regional delivery</strong>
-                    <span>Place inventory closer to demand across the country.</span>
-                  </li>
-                  <li>
-                    <strong>Lower shipping friction</strong>
-                    <span>Shorter lanes and fewer hops from warehouse to customer.</span>
-                  </li>
-                  <li>
-                    <strong>Scalable inventory placement</strong>
-                    <span>Grow storage where order volume needs it.</span>
-                  </li>
-                </ul>
-                <p className="home-locations__hq">
-                  Operations office: {company.address}
-                </p>
-              </div>
-            </div>
-          </section>
+        <WarehouseLocationsMap />
 
+        <div className="spatial-wrap home-stack">
           <section className="spatial-block" id="industries">
             <header className="spatial-block__head">
               <h2>Industries</h2>
