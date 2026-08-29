@@ -3,13 +3,11 @@ import Link from "next/link";
 import {
   Boxes,
   Car,
-  CheckCircle2,
   Flower2,
   Globe2,
   Hammer,
   HeartPulse,
   Layers3,
-  Megaphone,
   Mountain,
   Package,
   PackageCheck,
@@ -169,38 +167,16 @@ const SpatialHome = () => {
               </div>
             </div>
 
-            <div className="home-hero__stage" aria-hidden="true">
-              <div className="home-hero__float home-hero__float--truck">
-                <Truck size={22} strokeWidth={2.2} />
-              </div>
-
-              <div className="home-hero__card home-hero__card--visitors">
-                <span className="home-hero__card-check">
-                  <CheckCircle2 size={16} />
-                </span>
-                <p>Increase Visitors</p>
-                <div className="home-hero__gauge">
-                  <strong>
-                    125k
-                    <span>Followers</span>
-                  </strong>
-                </div>
-              </div>
-
-              <div className="home-hero__card home-hero__card--lift">
-                <p>47.5% Increase</p>
-                <div className="home-hero__bars" aria-hidden="true">
-                  <span style={{ height: "42%" }} />
-                  <span style={{ height: "68%" }} />
-                  <span style={{ height: "54%" }} />
-                  <span style={{ height: "88%" }} />
-                  <span style={{ height: "72%" }} />
-                </div>
-              </div>
-
-              <div className="home-hero__float home-hero__float--mega">
-                <Megaphone size={20} strokeWidth={2.2} />
-              </div>
+            <div className="home-hero__stage">
+              <Image
+                src="/assets/img/home/hero-person.png"
+                alt="Fulfillment associate holding a ready-to-ship package"
+                width={471}
+                height={523}
+                priority
+                className="home-hero__person"
+                sizes="(min-width: 900px) 460px, 80vw"
+              />
             </div>
           </div>
         </section>
