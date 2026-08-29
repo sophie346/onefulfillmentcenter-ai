@@ -163,7 +163,7 @@ function HubVisual() {
 
 const B2bWholesaleFulfillmentPage = () => {
   return (
-    <div className="ofc-tw min-h-screen bg-[#f4f7fb] text-[#101828]">
+    <div className="ofc-tw min-h-screen bg-[#070b12] text-white">
       <div className="bg-[#070b12]">
         <OfcTwHeader activeHref={OFC_B2B_FULFILLMENT_PATH} />
 
@@ -192,7 +192,7 @@ const B2bWholesaleFulfillmentPage = () => {
                 </Link>
                 <Link
                   href={OFC_WAREHOUSE_PATH}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/5"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-[#101826]/5"
                 >
                   Inventory Storage
                 </Link>
@@ -209,7 +209,7 @@ const B2bWholesaleFulfillmentPage = () => {
           return (
             <section
               key={section.title}
-              className={`border-b border-[#d9e2ec] ${index % 2 === 1 ? "bg-white" : "bg-[#f4f7fb]"}`}
+              className={`border-b border-white/10 ${index % 2 === 1 ? "bg-[#101826]" : "bg-[#070b12]"}`}
             >
               <div
                 className={`mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 lg:gap-14 lg:py-24 ${
@@ -229,19 +229,19 @@ const B2bWholesaleFulfillmentPage = () => {
                 </div>
 
                 <div className={imageFirst ? "order-1 lg:order-2" : "order-1 lg:order-1"}>
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#0f766e]">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#2fd3c8]">
                     {section.eyebrow}
                   </p>
-                  <h2 className="max-w-[16ch] text-3xl font-bold tracking-[-0.04em] text-[#101828] md:text-4xl">
+                  <h2 className="max-w-[16ch] text-3xl font-bold tracking-[-0.04em] text-white md:text-4xl">
                     {section.title}
                   </h2>
                   <div className="mt-8 space-y-6">
                     {section.points.map((point) => (
                       <div key={point.title}>
-                        <h3 className="text-lg font-bold tracking-tight text-[#101828]">
+                        <h3 className="text-lg font-bold tracking-tight text-white">
                           {point.title}
                         </h3>
-                        <p className="mt-2 max-w-md text-[15px] leading-7 text-[#667085]">
+                        <p className="mt-2 max-w-md text-[15px] leading-7 text-[#9aa6b8]">
                           {point.copy}
                         </p>
                       </div>
@@ -253,22 +253,22 @@ const B2bWholesaleFulfillmentPage = () => {
           );
         })}
 
-        <section className="border-b border-[#d9e2ec] bg-white">
+        <section className="border-b border-white/10 bg-[#101826]">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
             <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#0f766e]">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#2fd3c8]">
                 Economics
               </p>
-              <h2 className="max-w-[14ch] text-3xl font-bold tracking-[-0.04em] text-[#101828] md:text-4xl">
+              <h2 className="max-w-[14ch] text-3xl font-bold tracking-[-0.04em] text-white md:text-4xl">
                 Cost Savings Built for Wholesale Growth
               </h2>
               <div className="mt-8 space-y-6">
                 {COST_POINTS.map((point) => (
                   <div key={point.title} className="border-t border-[#e4ebf2] pt-5">
-                    <h3 className="text-lg font-bold tracking-tight text-[#101828]">
+                    <h3 className="text-lg font-bold tracking-tight text-white">
                       {point.title}
                     </h3>
-                    <p className="mt-2 max-w-md text-[15px] leading-7 text-[#667085]">
+                    <p className="mt-2 max-w-md text-[15px] leading-7 text-[#9aa6b8]">
                       {point.copy}
                     </p>
                   </div>
@@ -311,7 +311,7 @@ const B2bWholesaleFulfillmentPage = () => {
             </div>
             <Link
               href="/#newsletter"
-              className="inline-flex items-center gap-2 rounded-full bg-[#f5c542] px-6 py-3 text-sm font-bold text-[#101828] transition hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-[#f5c542] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5"
             >
               Talk to sales
               <Truck size={16} aria-hidden="true" />

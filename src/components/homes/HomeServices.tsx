@@ -45,7 +45,7 @@ const HomeServices = () => {
               className={active === index ? "is-active" : undefined}
               onClick={() => setActive(index)}
             >
-              {item.name}
+              <span>{item.name}</span>
             </button>
           ))}
         </div>

@@ -20,7 +20,7 @@ const OfcTwHeader = ({ activeHref }: Props) => {
       <div className="spatial-wrap spatial-header__bar">
         <Link href="/" className="spatial-header__logo" aria-label="One Fulfillment Center">
           <Image
-            src="/assets/img/logo/onefulfillcenter-logo.png"
+            src="/assets/img/logo/onefulfillcenter-logo-light.png"
             alt="One Fulfillment Center"
             width={170}
             height={36}

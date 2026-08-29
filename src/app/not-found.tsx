@@ -9,8 +9,8 @@ const NotFound = () => {
     <main
       style={{
         alignItems: "center",
-        background: "#f2f5f8",
-        color: "#101828",
+        background: "#070b12",
+        color: "#f3f6fb",
         display: "grid",
         fontFamily: "Manrope, sans-serif",
         gap: 16,
@@ -22,7 +22,7 @@ const NotFound = () => {
     >
       <p
         style={{
-          color: "#0f766e",
+          color: "#2fd3c8",
           fontSize: 12,
           fontWeight: 700,
           letterSpacing: "0.12em",
@@ -42,15 +42,15 @@ const NotFound = () => {
       >
         Page not found
       </h1>
-      <p style={{ color: "#667085", margin: 0, maxWidth: 420 }}>
+      <p style={{ color: "#9aa6b8", margin: 0, maxWidth: 420 }}>
         This site is starting fresh with the One Fulfillment Center home page.
       </p>
       <Link
         href="/"
         style={{
-          background: "#e85d04",
+          background: "#2fd3c8",
           borderRadius: 999,
-          color: "#fff",
+          color: "#04201e",
           fontWeight: 700,
           padding: "14px 24px",
           textDecoration: "none",

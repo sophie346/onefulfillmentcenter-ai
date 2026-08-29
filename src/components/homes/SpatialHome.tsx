@@ -3,15 +3,18 @@ import Link from "next/link";
 import {
   Boxes,
   Car,
+  CheckCircle2,
   Flower2,
   Globe2,
   Hammer,
   HeartPulse,
   Layers3,
+  Megaphone,
   Mountain,
   Package,
   PackageCheck,
   RotateCcw,
+  Send,
   Shirt,
   Ship,
   ShoppingBag,
@@ -22,36 +25,11 @@ import {
 } from "lucide-react";
 import OfcTwHeader from "@/components/solutions/OfcTwHeader";
 import HomeProcess from "@/components/homes/HomeProcess";
+import HomeHowItWorks from "@/components/homes/HomeHowItWorks";
 import HomeServices from "@/components/homes/HomeServices";
 import HomeNewsletter from "@/components/homes/HomeNewsletter";
 import { company, socialLinks } from "@/data/brandArchitecture";
 import { SERVICE_NAV } from "@/data/ofcNav";
-
-const HOW_STEPS = [
-  {
-    index: "01",
-    title: "Warehouse",
-    copy: "Our network of secure, scalable warehouses across multiple locations ensures faster delivery, reduced shipping costs, and optimized regional coverage with real-time inventory management.",
-  },
-  {
-    index: "02",
-    title: "Fulfillment",
-    copy: "Efficient order processing includes accurate picking, packing, and shipping, with add-ons like custom labeling, kitting, and packaging options for reliable, personalized fulfillment.",
-  },
-  {
-    index: "03",
-    title: "Logistics",
-    copy: "End-to-end logistics includes direct delivery via OneFulfillmentCenter and carriers like UPS, FedEx, and USPS for flexible, timely, and cost-effective shipping.",
-  },
-] as const;
-
-const CHAIN = [
-  "Manufacturer / Vendor",
-  "Warehouse",
-  "One Fulfillment Center",
-  "Retailers / Wholesale",
-  "Customers",
-] as const;
 
 const BENEFITS = [
   { title: "Multiple warehouses", icon: Warehouse, color: "#0f766e" },
@@ -64,14 +42,6 @@ const BENEFITS = [
   { title: "Wholesale fulfillment", icon: Store, color: "#0e7490" },
   { title: "Returns processing", icon: RotateCcw, color: "#b91c1c" },
   { title: "Carrier-ready logistics", icon: Truck, color: "#4338ca" },
-] as const;
-
-const SOFTWARE_TILES = [
-  { title: "Orders today", copy: "1,284 fulfilled · 98% on-time" },
-  { title: "Inventory", copy: "Live SKU sync" },
-  { title: "Returns", copy: "42 in process" },
-  { title: "Carriers", copy: "UPS · FedEx · USPS" },
-  { title: "Channels", copy: "Amazon · Shopify" },
 ] as const;
 
 const LOGOS = [
@@ -166,36 +136,71 @@ const SpatialHome = () => {
 
       <main>
         <section className="home-hero">
+          <div className="home-hero__bg" aria-hidden="true">
+            <Image
+              src="/assets/img/home/home-hero.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+            />
+            <div className="home-hero__scrim" />
+          </div>
+
           <div className="spatial-wrap home-hero__grid">
-            <div>
-              <p className="spatial-kicker">
-                One <span>Fulfillment</span> Center
-              </p>
+            <div className="home-hero__copy">
               <h1>
-                Next Generation <em>Fulfillment</em> Center
+                Next Generation <em>Fulfillment Center</em>
               </h1>
+              <p className="home-hero__for">
+                for <em>Brands &amp; Retailers</em>
+              </p>
               <p className="spatial-lede">
-                For eCommerce business — omni-channel fulfillment with a distributed warehouse
-                network that helps you grow, reach more customers, and deliver orders swiftly.
+                Omni-channel fulfillment, with a distributed warehouse network, optimizes B2B
+                and B2C order processing, ensuring businesses deliver orders swiftly and
+                efficiently.
               </p>
               <div className="spatial-cta-row">
-                <Link className="spatial-btn spatial-btn--teal" href="#newsletter">
+                <Link className="spatial-btn spatial-btn--lime" href="#newsletter">
                   Request a Demo
-                </Link>
-                <Link className="spatial-btn spatial-btn--ghost" href="#how-it-works">
-                  How it works
+                  <Send size={16} aria-hidden="true" />
                 </Link>
               </div>
             </div>
-            <figure className="spatial-photo home-hero__photo">
-              <Image
-                src="/assets/img/home/home-hero.jpg"
-                alt="Fulfillment warehouse floor with pick aisles and packing stations"
-                fill
-                priority
-                sizes="(min-width: 900px) 640px, 100vw"
-              />
-            </figure>
+
+            <div className="home-hero__stage" aria-hidden="true">
+              <div className="home-hero__float home-hero__float--truck">
+                <Truck size={22} strokeWidth={2.2} />
+              </div>
+
+              <div className="home-hero__card home-hero__card--visitors">
+                <span className="home-hero__card-check">
+                  <CheckCircle2 size={16} />
+                </span>
+                <p>Increase Visitors</p>
+                <div className="home-hero__gauge">
+                  <strong>
+                    125k
+                    <span>Followers</span>
+                  </strong>
+                </div>
+              </div>
+
+              <div className="home-hero__card home-hero__card--lift">
+                <p>47.5% Increase</p>
+                <div className="home-hero__bars" aria-hidden="true">
+                  <span style={{ height: "42%" }} />
+                  <span style={{ height: "68%" }} />
+                  <span style={{ height: "54%" }} />
+                  <span style={{ height: "88%" }} />
+                  <span style={{ height: "72%" }} />
+                </div>
+              </div>
+
+              <div className="home-hero__float home-hero__float--mega">
+                <Megaphone size={20} strokeWidth={2.2} />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -203,66 +208,27 @@ const SpatialHome = () => {
           <HomeProcess />
           <HomeServices />
 
-          <section className="spatial-block" id="how-it-works">
-            <div className="home-how">
-              <div>
-                <p className="spatial-kicker">Process</p>
-                <h2>How It Works</h2>
-                <p className="spatial-lede">
-                  Simplify order fulfillment for B2B and D2C businesses across all sales channels
-                  with a distributed warehouse network built for fast delivery and worry-free
-                  expansion.
-                </p>
-                <ol className="spatial-spine">
-                  {HOW_STEPS.map((step) => (
-                    <li key={step.title}>
-                      <span>{step.index}</span>
-                      <div>
-                        <h3>{step.title}</h3>
-                        <p>{step.copy}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <figure className="spatial-photo home-how__photo">
-                <Image
-                  src="/assets/img/home/home-shipping.jpg"
-                  alt="Outbound freight staged at the shipping dock"
-                  fill
-                  sizes="(min-width: 900px) 480px, 100vw"
-                />
-              </figure>
-            </div>
-          </section>
+          <HomeHowItWorks />
 
           <section className="spatial-block" id="supply-chain">
             <div className="home-chain-block">
-              <div>
+              <header className="home-chain-block__head">
                 <h2>Products Supply Chain From Factory to Customers</h2>
                 <p className="spatial-lede">
-                  Move inventory from factory to warehouse to fulfillment to customers with one
-                  operating network for B2B and D2C commerce.
+                  Simplify order fulfillment for B2B and D2C businesses across all sales channels
+                  with OneChannelAdmin&apos;s distributed warehouse network, enabling fast delivery
+                  and worry-free business expansion.
                 </p>
-              </div>
-              <div className="home-chain-block__stage">
-                <figure className="spatial-photo home-chain-block__photo">
-                  <Image
-                    src="/assets/img/home/home-supply-chain.jpg"
-                    alt="Inbound pallets moving from factory freight into warehouse fulfillment"
-                    fill
-                    sizes="(min-width: 900px) 1400px, 100vw"
-                  />
-                </figure>
-                <ol className="home-chain">
-                  {CHAIN.map((node, index) => (
-                    <li key={node}>
-                      <span>{index + 1}</span>
-                      {node}
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              </header>
+              <figure className="home-chain-block__diagram">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/img/home/supply-chain-with-box.svg"
+                  alt="Supply chain from manufacture and factories through warehouses to distributors, ecommerce channels, and customers"
+                  width={1201}
+                  height={574}
+                />
+              </figure>
             </div>
           </section>
 
@@ -290,37 +256,28 @@ const SpatialHome = () => {
           <section className="spatial-block" id="software">
             <div className="home-software">
               <div className="home-software__copy">
-                <div>
-                  <p className="spatial-kicker">Platform</p>
-                  <h2>Onefulfillcenter Software For Your Supply Chain</h2>
-                  <p className="spatial-lede">
-                    An advanced, scalable platform that integrates across sales channels, 3PL
-                    partners, shipping carriers, and marketing tools. Centralize inventory
-                    management with an intuitive dashboard built for everyday operations.
-                  </p>
-                </div>
-                <Link className="spatial-btn spatial-btn--teal" href="#newsletter">
-                  Get Started
+                <h2>Onefulfillcenter Software For Your Supply Chain</h2>
+                <p className="spatial-lede">
+                  An advanced, scalable, and technologically sophisticated platform seamlessly
+                  integrates across diverse sales, third-party logistics (3PL), Shipping carriers,
+                  and marketing channels. It centralizes inventory management through cutting-edge
+                  solutions and offers an intuitive dashboard for user-friendly navigation.
+                </p>
+                <Link className="spatial-btn spatial-btn--cyan" href="#newsletter">
+                  Learn More
+                  <Send size={16} aria-hidden="true" />
                 </Link>
               </div>
-              <div className="home-software__stage">
-                <figure className="spatial-photo home-software__photo">
-                  <Image
-                    src="/assets/img/home/home-platform.jpg"
-                    alt="Operations desk overlooking warehouse inventory"
-                    fill
-                    sizes="(min-width: 900px) 1400px, 100vw"
-                  />
-                </figure>
-                <ul className="home-software__tiles">
-                  {SOFTWARE_TILES.map((tile) => (
-                    <li key={tile.title}>
-                      <strong>{tile.title}</strong>
-                      <span>{tile.copy}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <figure className="home-software__phone">
+                <Image
+                  src="/assets/img/home/software-phone.png"
+                  alt="One Channel Admin mobile dashboard showing sales, returns, open, and pending orders"
+                  width={324}
+                  height={403}
+                  sizes="(min-width: 900px) 320px, 240px"
+                  priority={false}
+                />
+              </figure>
             </div>
           </section>
 
@@ -418,7 +375,7 @@ const SpatialHome = () => {
           <div>
             <Link href="/">
               <Image
-                src="/assets/img/logo/onefulfillcenter-logo.png"
+                src="/assets/img/logo/onefulfillcenter-logo-light.png"
                 alt="One Fulfillment Center"
                 width={180}
                 height={38}
