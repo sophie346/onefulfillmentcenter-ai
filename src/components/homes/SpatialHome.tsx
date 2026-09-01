@@ -204,8 +204,8 @@ const SpatialHome = () => {
                 <img
                   src="/assets/img/home/supply-chain-with-box.svg"
                   alt="Supply chain from manufacture and factories through warehouses to distributors, ecommerce channels, and customers"
-                  width={1201}
-                  height={574}
+                  width={1050}
+                  height={502}
                 />
               </figure>
             </div>

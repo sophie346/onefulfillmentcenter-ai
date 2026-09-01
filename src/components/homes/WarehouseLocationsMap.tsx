@@ -96,12 +96,12 @@ const WarehouseLocationsMap = () => {
   return (
     <section
       id="warehouse-locations"
-      className="relative overflow-hidden border-y border-slate-800/80 bg-[#0c1017] px-4 py-16 text-white sm:px-6 sm:py-24 lg:px-8"
+      className="relative overflow-hidden border-y border-slate-800/80 bg-[#0c1017] px-4 py-12 text-white sm:px-6 sm:py-20 lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#1f29370f_1px,transparent_1px),linear-gradient(to_bottom,#1f29370f_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-[350px] w-[750px] -translate-x-1/2 rounded-full bg-orange-600/10 blur-[130px]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -118,7 +118,7 @@ const WarehouseLocationsMap = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl"
+            className="mb-4 text-2xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl"
           >
             Warehouse Locations
           </motion.h2>
@@ -178,7 +178,7 @@ const WarehouseLocationsMap = () => {
             </div>
           </div>
 
-          <div className="relative flex aspect-[16/10] min-h-[400px] max-h-[760px] w-full select-none items-center justify-center sm:min-h-[560px]">
+          <div className="relative mx-auto flex aspect-[16/10] w-full max-w-3xl min-h-[240px] max-h-[480px] select-none items-center justify-center sm:min-h-[320px]">
             <svg
               viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
               className="h-full w-full object-contain"
@@ -261,28 +261,6 @@ const WarehouseLocationsMap = () => {
               </g>
             </svg>
 
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              {overlaysReady
-                ? WAREHOUSE_HUBS.map((hub) => {
-                    const pos = hubPositions.get(hub.id);
-                    if (!pos) return null;
-                    const isHighlighted =
-                      selectedHub?.id === hub.id || hoveredHub?.id === hub.id;
-                    return (
-                      <div
-                        key={`coverage-${hub.id}`}
-                        className={`pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-solid transition-all duration-300 ${
-                          isHighlighted
-                            ? "h-[240px] w-[240px] border-[rgba(242,101,34,0.6)] bg-[radial-gradient(circle,rgba(242,101,34,0.35)_0%,rgba(242,101,34,0.02)_70%,transparent_100%)]"
-                            : "h-[140px] w-[140px] border-[rgba(242,101,34,0.15)] bg-[radial-gradient(circle,rgba(242,101,34,0.08)_0%,rgba(242,101,34,0.02)_70%,transparent_100%)]"
-                        }`}
-                        style={{ left: mapPercent(pos.xPct), top: mapPercent(pos.yPct) }}
-                      />
-                    );
-                  })
-                : null}
-            </div>
-
             <div className="pointer-events-none absolute inset-0">
               {overlaysReady
                 ? WAREHOUSE_HUBS.map((hub) => {
@@ -309,48 +287,35 @@ const WarehouseLocationsMap = () => {
                     onClick={() => setSelectedHub(isSelected ? null : hub)}
                   >
                     <div className="relative flex items-center justify-center">
-                      <span
-                        className={`pointer-events-none absolute h-7 w-7 animate-ping rounded-full ${
-                          isSelected
-                            ? "bg-[#f26522] opacity-75"
-                            : isSuperhub
-                              ? "bg-[#f26522] opacity-40 duration-1000"
-                              : "bg-amber-500 opacity-25 duration-1500"
-                        }`}
-                      />
                       <motion.div
                         animate={{
-                          scale: isSelected ? 1.35 : isHovered ? 1.25 : 1,
-                          y: isSelected || isHovered ? -5 : 0,
+                          scale: isSelected ? 1.2 : isHovered ? 1.12 : 1,
+                          y: isSelected || isHovered ? -3 : 0,
                         }}
                         transition={{ type: "spring", stiffness: 450, damping: 25 }}
-                        className={`relative flex items-center justify-center rounded-full p-1.5 shadow-lg transition-shadow ${
+                        className={`relative flex items-center justify-center rounded-full p-0.5 shadow-md transition-shadow ${
                           isSelected
-                            ? "z-30 bg-[#f26522] text-white shadow-orange-500/80 ring-4 ring-orange-500/40"
+                            ? "z-30 bg-[#f26522] text-white shadow-orange-500/80 ring-2 ring-orange-500/40"
                             : isHovered
-                              ? "z-30 bg-[#f26522] text-white shadow-orange-500/50 ring-2 ring-orange-400/50"
+                              ? "z-30 bg-[#f26522] text-white shadow-orange-500/50 ring-1 ring-orange-400/50"
                               : isSuperhub
-                                ? "bg-gradient-to-b from-[#f26522] to-orange-700 text-white shadow-orange-950/60 ring-1 ring-orange-400/40"
+                                ? "bg-gradient-to-b from-[#f26522] to-orange-700 text-white shadow-orange-950/60 ring-1 ring-orange-400/30"
                                 : "border border-orange-500/40 bg-[#1e2533] text-orange-400 hover:bg-[#f26522] hover:text-white"
                         }`}
                       >
                         <div className="relative flex items-center justify-center">
                           <MapPin
-                            className={`h-4 w-4 fill-current sm:h-5 sm:w-5 ${
+                            className={`h-2.5 w-2.5 fill-current sm:h-3 sm:w-3 ${
                               isSelected ? "stroke-[2.5]" : "stroke-2"
                             }`}
                           />
-                          <span className="absolute top-[3px] h-1.5 w-1.5 rounded-full bg-white opacity-90" />
+                          <span className="absolute top-[2px] h-1 w-1 rounded-full bg-white opacity-90" />
                         </div>
                       </motion.div>
 
-                      {isHovered || isSelected || isSuperhub ? (
+                      {isHovered ? (
                         <div
-                          className={`pointer-events-none absolute top-full left-1/2 mt-1.5 -translate-x-1/2 rounded-md px-2 py-0.5 text-[10px] font-bold whitespace-nowrap shadow-xl transition-all ${
-                            isSelected
-                              ? "bg-[#f26522] text-white"
-                              : "border border-slate-700 bg-[#0f141e]/95 text-slate-200"
-                          }`}
+                          className="pointer-events-none absolute top-full left-1/2 mt-1.5 -translate-x-1/2 rounded-md border border-slate-700 bg-[#0f141e]/95 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap text-slate-200 shadow-xl transition-all"
                         >
                           {hub.code} • {hub.city}
                         </div>

@@ -106,7 +106,7 @@ const HomeProcess = () => {
 
   return (
     <section
-      className="spatial-block"
+      className="spatial-block home-process-section"
       id="processes"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

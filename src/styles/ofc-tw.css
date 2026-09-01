@@ -13,7 +13,13 @@
   --color-ofc-teal: #2fd3c8;
 }
 
+html.oc-site:has(.ofc-tw) {
+  font-size: 92%;
+}
+
 .ofc-tw {
+  --ofc-content-max: 80rem;
+  --ofc-header-height: 4.5rem;
   font-family: var(--font-ofc-sans);
   color: #f3f6fb;
   background: #070b12;
@@ -46,11 +52,11 @@
     radial-gradient(900px 420px at 90% -8%, rgba(47, 211, 200, 0.12), transparent 55%),
     radial-gradient(700px 380px at 0% 8%, rgba(255, 106, 61, 0.14), transparent 50%),
     #070b12;
-  padding-bottom: 4.5rem;
+  padding-bottom: 3.5rem;
 }
 
 .spatial-wrap {
-  width: min(1400px, calc(100% - 2rem));
+  width: min(var(--ofc-content-max), calc(100% - 2rem));
   margin-inline: auto;
 }
 
@@ -68,11 +74,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 72px;
+  min-height: var(--ofc-header-height);
 }
 
 .spatial-header__logo {
-  width: 168px;
+  width: 9.5rem;
   flex-shrink: 0;
 }
 
@@ -198,10 +204,10 @@
 
 .spatial-lede {
   max-width: 38rem;
-  margin: 1.1rem 0 0;
+  margin: 1rem 0 0;
   color: #9aa6b8;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 0.98rem;
+  line-height: 1.65;
 }
 
 .spatial-crumb {
@@ -225,7 +231,7 @@
 
 .spatial-nav {
   position: sticky;
-  top: 72px;
+  top: var(--ofc-header-height);
   z-index: 30;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(7, 11, 18, 0.9);
@@ -235,7 +241,7 @@
 .spatial-nav__track {
   display: flex;
   gap: 0.25rem;
-  width: min(1400px, calc(100% - 2rem));
+  width: min(var(--ofc-content-max), calc(100% - 2rem));
   margin-inline: auto;
   overflow-x: auto;
   padding: 0.45rem 0;
@@ -444,12 +450,12 @@
 }
 
 .spatial-block {
-  scroll-margin-top: 8.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.7rem;
-  padding: 1.6rem 1.4rem;
-  background: #101826;
+  scroll-margin-top: 7.5rem;
+  margin-bottom: 0.85rem;
+  padding: 1.35rem 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .spatial-block__head {
@@ -459,7 +465,7 @@
 
 .spatial-block__head h2 {
   margin: 0;
-  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
   letter-spacing: -0.03em;
 }
 
@@ -937,7 +943,7 @@
   }
 
   .spatial-block {
-    padding: 1.85rem 1.7rem;
+    padding: 1.85rem 0;
   }
 }
 
@@ -989,8 +995,8 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 2.5rem 0 3rem;
-  min-height: min(78vh, 640px);
+  padding: 2rem 0 2.5rem;
+  min-height: min(70vh, 560px);
   display: grid;
   align-items: center;
 }
@@ -1034,7 +1040,7 @@
 .home-hero h1 {
   max-width: 11ch;
   margin: 0;
-  font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+  font-size: clamp(2rem, 4.8vw, 3.2rem);
   letter-spacing: -0.05em;
   line-height: 0.98;
   color: #fff;
@@ -1065,14 +1071,14 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: min(100%, 420px);
+  width: min(100%, 380px);
   margin-inline: auto;
-  min-height: 280px;
+  min-height: 250px;
 }
 
 .home-hero__person {
   display: block;
-  width: min(100%, 380px);
+  width: min(100%, 340px);
   height: auto;
   filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.45));
   animation: home-hero-float 5.6s ease-in-out infinite;
@@ -1107,6 +1113,26 @@
 
 .home-stack .spatial-block {
   margin-bottom: 0;
+}
+
+.home-process-section {
+  background: #ffffff;
+  border-radius: 0.7rem;
+  padding: 1.35rem 1.2rem;
+}
+
+.home-process-section .home-process__intro h2 {
+  color: #0f172a;
+}
+
+.home-process-section .home-process__tabs button.is-active {
+  background: #ffffff;
+  border-color: #e85d04;
+  color: #e85d04;
+}
+
+.home-process-section .home-process__cols li {
+  color: #334155;
 }
 
 .home-process__intro {
@@ -1498,19 +1524,18 @@
 }
 
 .home-chain-block__diagram {
-  margin: 0;
-  width: 100%;
+  margin: 0 auto;
+  width: min(100%, 46rem);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .home-chain-block__diagram img {
   display: block;
-  width: min(100%, 1200px);
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   margin: 0 auto;
-  min-width: 640px;
 }
 
 .home-benefits__head {
