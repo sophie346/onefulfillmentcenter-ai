@@ -107,7 +107,7 @@ const WarehouseLocationsMap = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-4 inline-flex items-center gap-2 rounded-md border border-orange-500/20 bg-orange-500/10 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#f26522] uppercase"
+            className="mb-4 inline-flex items-center gap-2 rounded-md border border-orange-500/20 bg-orange-500/10 px-3.5 py-1.5 text-sm font-semibold tracking-wider text-[#f26522] uppercase"
           >
             <Compass className="h-3.5 w-3.5" />
             Nationwide Logistics Network
@@ -153,7 +153,7 @@ const WarehouseLocationsMap = () => {
             </svg>
           </div>
 
-          <div className="absolute top-4 left-6 z-20 hidden items-center gap-2 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs text-slate-400 backdrop-blur-md sm:flex">
+          <div className="absolute top-4 left-6 z-20 hidden items-center gap-2 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-sm text-slate-400 backdrop-blur-md sm:flex">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#f26522]" />
             <span>
               Click on any <strong className="font-semibold text-slate-200">Drop Pin</strong> to
@@ -161,20 +161,20 @@ const WarehouseLocationsMap = () => {
             </span>
           </div>
 
-          <div className="absolute top-4 right-6 z-20 flex items-center gap-3 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-xs backdrop-blur-md">
+          <div className="absolute top-4 right-6 z-20 flex items-center gap-3 rounded-md border border-slate-800 bg-[#0a0d14]/85 px-3.5 py-1.5 text-sm backdrop-blur-md">
             {hoveredState ? (
-              <div className="mr-1 flex items-center gap-1.5 border-r border-slate-700 pr-3 text-xs font-bold text-orange-400">
+              <div className="mr-1 flex items-center gap-1.5 border-r border-slate-700 pr-3 text-sm font-bold text-orange-400">
                 <Globe className="h-3.5 w-3.5" />
                 <span>{hoveredState}</span>
               </div>
             ) : null}
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522]" />
-              <span className="text-[11px] text-slate-300">Primary Superhub</span>
+              <span className="text-sm text-slate-300">Primary Superhub</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="text-[11px] text-slate-300">Regional Depot</span>
+              <span className="text-sm text-slate-300">Regional Depot</span>
             </div>
           </div>
 
@@ -315,7 +315,7 @@ const WarehouseLocationsMap = () => {
 
                       {isHovered ? (
                         <div
-                          className="pointer-events-none absolute top-full left-1/2 mt-1.5 -translate-x-1/2 rounded-md border border-slate-700 bg-[#0f141e]/95 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap text-slate-200 shadow-xl transition-all"
+                          className="pointer-events-none absolute top-full left-1/2 mt-1.5 -translate-x-1/2 rounded-md border border-slate-700 bg-[#0f141e]/95 px-2 py-0.5 text-sm font-bold whitespace-nowrap text-slate-200 shadow-xl transition-all"
                         >
                           {hub.code} • {hub.city}
                         </div>
@@ -353,10 +353,10 @@ const WarehouseLocationsMap = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="rounded-md border border-orange-500/30 bg-orange-500/20 px-2.5 py-0.5 font-mono text-xs font-bold text-orange-400">
+                        <span className="rounded-md border border-orange-500/30 bg-orange-500/20 px-2.5 py-0.5 font-mono text-sm font-bold text-orange-400">
                           {selectedHub.code}
                         </span>
-                        <span className="flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                        <span className="flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-sm font-semibold text-emerald-400">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                           {selectedHub.status}
                         </span>
@@ -364,30 +364,30 @@ const WarehouseLocationsMap = () => {
                       <h3 className="mt-1 text-xl font-bold text-white sm:text-2xl">
                         {selectedHub.name}
                       </h3>
-                      <p className="text-xs text-slate-400">{selectedHub.address}</p>
+                      <p className="text-sm text-slate-400">{selectedHub.address}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
-                      <p className="text-[11px] font-medium text-slate-400">Facility Size</p>
+                      <p className="text-sm font-medium text-slate-400">Facility Size</p>
                       <p className="mt-0.5 text-base font-bold text-white">{selectedHub.sqft}</p>
                     </div>
                     <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
-                      <p className="text-[11px] font-medium text-slate-400">Daily Outbound Flow</p>
+                      <p className="text-sm font-medium text-slate-400">Daily Outbound Flow</p>
                       <p className="mt-0.5 text-base font-bold text-orange-400">
                         {selectedHub.dailyCapacity}
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
-                      <p className="text-[11px] font-medium text-slate-400">Same-Day Cut-off</p>
+                      <p className="text-sm font-medium text-slate-400">Same-Day Cut-off</p>
                       <p className="mt-0.5 text-base font-bold text-emerald-400">
                         {selectedHub.cutoffTime}
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-3.5">
-                      <p className="text-[11px] font-medium text-slate-400">Automation Level</p>
-                      <p className="mt-1 text-xs font-bold text-slate-200">
+                      <p className="text-sm font-medium text-slate-400">Automation Level</p>
+                      <p className="mt-1 text-sm font-bold text-slate-200">
                         {selectedHub.automationLevel}
                       </p>
                     </div>
@@ -396,15 +396,15 @@ const WarehouseLocationsMap = () => {
 
                 <div className="space-y-4 lg:col-span-4">
                   <div className="space-y-3 rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-4">
-                    <p className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#f26522] uppercase">
+                    <p className="flex items-center gap-1.5 text-sm font-bold tracking-wider text-[#f26522] uppercase">
                       <Truck className="h-3.5 w-3.5" /> Ground Delivery Reach
                     </p>
                     <div>
-                      <p className="text-[11px] text-slate-400">1-Day Ground Delivery:</p>
+                      <p className="text-sm text-slate-400">1-Day Ground Delivery:</p>
                       <p className="text-sm font-semibold text-white">{selectedHub.oneDayReach}</p>
                     </div>
                     <div>
-                      <p className="text-[11px] text-slate-400">2-Day Ground Delivery:</p>
+                      <p className="text-sm text-slate-400">2-Day Ground Delivery:</p>
                       <p className="text-sm font-semibold text-emerald-400">
                         {selectedHub.twoDayReach}
                       </p>
@@ -412,14 +412,14 @@ const WarehouseLocationsMap = () => {
                   </div>
 
                   <div>
-                    <p className="mb-2 text-xs font-bold tracking-wider text-slate-400 uppercase">
+                    <p className="mb-2 text-sm font-bold tracking-wider text-slate-400 uppercase">
                       Connected Carriers On-Site:
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedHub.carriers.map((carrier) => (
                         <span
                           key={carrier}
-                          className="rounded-md border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-300"
+                          className="rounded-md border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-sm font-medium text-slate-300"
                         >
                           {carrier}
                         </span>
@@ -430,11 +430,11 @@ const WarehouseLocationsMap = () => {
 
                 <div className="space-y-4 lg:col-span-3">
                   <div className="space-y-2.5 rounded-lg border border-slate-800 bg-[#0b0e14]/80 p-4">
-                    <p className="text-xs font-bold tracking-wider text-slate-400 uppercase">
+                    <p className="text-sm font-bold tracking-wider text-slate-400 uppercase">
                       Facility Capabilities:
                     </p>
                     {selectedHub.features.map((feat) => (
-                      <div key={feat} className="flex items-center gap-2 text-xs text-slate-200">
+                      <div key={feat} className="flex items-center gap-2 text-sm text-slate-200">
                         <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#f26522]" />
                         <span>{feat}</span>
                       </div>
@@ -443,7 +443,7 @@ const WarehouseLocationsMap = () => {
 
                   <Link
                     href="#newsletter"
-                    className="flex w-full items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#f26522] to-orange-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-orange-600/30 transition-all hover:from-orange-600 hover:to-orange-700 sm:text-sm"
+                    className="flex w-full items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#f26522] to-orange-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-orange-600/30 transition-all hover:from-orange-600 hover:to-orange-700 sm:text-sm"
                   >
                     <span>Store Inventory at {selectedHub.code}</span>
                     <ArrowUpRight className="h-4 w-4" />

@@ -53,16 +53,6 @@ const BENEFITS = [
   },
 ] as const;
 
-const LOGOS = [
-  { src: "/assets/img/brand/one/brand-logo-1.png", alt: "Integration partner 1" },
-  { src: "/assets/img/brand/one/brand-logo-2.png", alt: "Integration partner 2" },
-  { src: "/assets/img/brand/one/brand-logo-3.png", alt: "Integration partner 3" },
-  { src: "/assets/img/brand/one/brand-logo-4.png", alt: "Integration partner 4" },
-  { src: "/assets/img/brand/one/brand-logo-5.png", alt: "Integration partner 5" },
-  { src: "/assets/img/brand/one/brand-logo-6.png", alt: "Integration partner 6" },
-  { src: "/assets/img/brand/one/brand-logo-7.png", alt: "Integration partner 7" },
-] as const;
-
 const INDUSTRIES = [
   {
     title: "Apparel",
@@ -185,7 +175,7 @@ const SpatialHome = () => {
 
         <div className="spatial-wrap home-stack">
           <HomeProcess />
-          <HomeServices />
+          {/* <HomeServices /> */}
 
           <HomeHowItWorks />
 
@@ -265,26 +255,20 @@ const SpatialHome = () => {
             </div>
           </section>
 
-          <section className="spatial-block home-integrations" id="integrations">
-            <div className="home-integrations__stage">
-              <div className="home-integrations__copy">
-                <p className="spatial-kicker">Connections</p>
-                <h2>
-                  Connect to your <em>favourite apps</em>
-                </h2>
-                <p className="spatial-lede">
-                  Plug Onefulfillcenter into the sales channels, carriers, and tools your team
-                  already runs.
-                </p>
-              </div>
-              <div className="home-integrations__logos" aria-label="Integration partners">
-                {LOGOS.map((logo) => (
-                  <div className="home-integrations__logo" key={logo.src}>
-                    <Image src={logo.src} alt={logo.alt} width={88} height={48} />
-                  </div>
-                ))}
-              </div>
-            </div>
+          <section className="home-integrations" id="integrations" aria-labelledby="integrations-heading">
+            <h2 id="integrations-heading" className="home-integrations__sr-only">
+              Connect to your favourite apps
+            </h2>
+            <figure className="home-integrations__visual">
+              <Image
+                src="/assets/img/home/connect-apps.png"
+                alt="One Channel Admin connected to Amazon, Walmart, eBay, Etsy, Stripe, PayPal, FedEx, Google Ads, Facebook, and Avalara"
+                width={1440}
+                height={683}
+                sizes="(min-width: 1400px) 1400px, 100vw"
+                priority={false}
+              />
+            </figure>
           </section>
         </div>
 
